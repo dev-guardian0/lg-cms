@@ -1,0 +1,6 @@
+schema:
+  - schema.graphql
+  - http://localhost:3006/shop-api
+documents:
+  - '**/*.graphql'
+  - '**/*.gql'

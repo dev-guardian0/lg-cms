@@ -12,17 +12,47 @@ export interface Config {
   };
   collections: {
     users: User;
+    pages: Page;
     media: Media;
+    menus: Menu;
+    'static-text': StaticText;
+    regions: Region;
+    cities: City;
+    locations: Location;
+    'butcher-categories': ButcherCategory;
+    'product-categories': ProductCategory;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    menus: MenusSelect<false> | MenusSelect<true>;
+    'static-text': StaticTextSelect<false> | StaticTextSelect<true>;
+    regions: RegionsSelect<false> | RegionsSelect<true>;
+    cities: CitiesSelect<false> | CitiesSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
+    'butcher-categories': ButcherCategoriesSelect<false> | ButcherCategoriesSelect<true>;
+    'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
-  locale: null;
+  globalsSelect: {};
+  locale: 'en' | 'vi';
   user: User & {
     collection: 'users';
+  };
+  jobs?: {
+    tasks: unknown;
+    workflows?: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -48,7 +78,8 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -62,11 +93,147 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  description?: string | null;
+  content: (
+    | {
+        backgroundImage: number | Media;
+        title: string;
+        subtitle?: string | null;
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hero';
+      }
+    | {
+        basicInfo?: {
+          appearance?: ('simple' | 'promo') | null;
+          backgroundImage?: (number | null) | Media;
+          title?: string | null;
+          description?: string | null;
+        };
+        panels?:
+          | {
+              image?: (number | null) | Media;
+              title: string;
+              subtitle?: string | null;
+              text: string;
+              links?:
+                | {
+                    link: {
+                      appearance?: ('primary' | 'highlight') | null;
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null;
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'multi-panel-cta';
+      }
+    | {
+        basicInfo?: {
+          backgroundImage?: (number | null) | Media;
+          title?: string | null;
+          description?: string | null;
+        };
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        categories?:
+          | {
+              category?: (number | null) | ButcherCategory;
+              columns?: number | null;
+              rows?: number | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'butcher-shop-promo';
+      }
+    | {
+        basicInfo?: {
+          title?: string | null;
+          description?: string | null;
+        };
+        categories: (number | ProductCategory)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'product-highlights';
+      }
+    | {
+        basicInfo: {
+          line1: string;
+          line2: string;
+        };
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        images?:
+          | {
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'social-feed';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
+  description?: string | null;
+  vendure_id?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -81,13 +248,630 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "butcher-categories".
+ */
+export interface ButcherCategory {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  vendureSlug: string;
+  defaultImage: number | Media;
+  availableRegions?: (number | Region)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  country_code: string;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  coordinates?: [number, number] | null;
+  defaultLocale?: ('en' | 'vi') | null;
+  hostUrl: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  vendureSlug: string;
+  parentCategory?: (number | null) | ProductCategory;
+  defaultImage?: (number | null) | Media;
+  availableRegions?: (number | Region)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus".
+ */
+export interface Menu {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  items?:
+    | {
+        title: string;
+        type?: ('link' | 'submenu' | 'regions') | null;
+        style?: ('primary' | 'highlight') | null;
+        subitems?:
+          | {
+              title: string;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "static-text".
+ */
+export interface StaticText {
+  id: number;
+  text: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: number;
+  city: string;
+  slug: string;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  coordinates?: [number, number] | null;
+  timezone:
+    | 'Africa/Abidjan'
+    | 'Africa/Accra'
+    | 'Africa/Addis_Ababa'
+    | 'Africa/Algiers'
+    | 'Africa/Asmara'
+    | 'Africa/Bamako'
+    | 'Africa/Bangui'
+    | 'Africa/Banjul'
+    | 'Africa/Bissau'
+    | 'Africa/Blantyre'
+    | 'Africa/Brazzaville'
+    | 'Africa/Bujumbura'
+    | 'Africa/Cairo'
+    | 'Africa/Casablanca'
+    | 'Africa/Ceuta'
+    | 'Africa/Conakry'
+    | 'Africa/Dakar'
+    | 'Africa/Dar_es_Salaam'
+    | 'Africa/Djibouti'
+    | 'Africa/Douala'
+    | 'Africa/El_Aaiun'
+    | 'Africa/Freetown'
+    | 'Africa/Gaborone'
+    | 'Africa/Harare'
+    | 'Africa/Johannesburg'
+    | 'Africa/Juba'
+    | 'Africa/Kampala'
+    | 'Africa/Khartoum'
+    | 'Africa/Kigali'
+    | 'Africa/Kinshasa'
+    | 'Africa/Lagos'
+    | 'Africa/Libreville'
+    | 'Africa/Lome'
+    | 'Africa/Luanda'
+    | 'Africa/Lubumbashi'
+    | 'Africa/Lusaka'
+    | 'Africa/Malabo'
+    | 'Africa/Maputo'
+    | 'Africa/Maseru'
+    | 'Africa/Mbabane'
+    | 'Africa/Mogadishu'
+    | 'Africa/Monrovia'
+    | 'Africa/Nairobi'
+    | 'Africa/Ndjamena'
+    | 'Africa/Niamey'
+    | 'Africa/Nouakchott'
+    | 'Africa/Ouagadougou'
+    | 'Africa/Porto'
+    | 'Africa/Sao_Tome'
+    | 'Africa/Tripoli'
+    | 'Africa/Tunis'
+    | 'Africa/Windhoek'
+    | 'America/Adak'
+    | 'America/Anchorage'
+    | 'America/Anguilla'
+    | 'America/Antigua'
+    | 'America/Araguaina'
+    | 'America/Argentina'
+    | 'America/Aruba'
+    | 'America/Asuncion'
+    | 'America/Atikokan'
+    | 'America/Bahia'
+    | 'America/Bahia_Banderas'
+    | 'America/Barbados'
+    | 'America/Belem'
+    | 'America/Belize'
+    | 'America/Blanc'
+    | 'America/Boa_Vista'
+    | 'America/Bogota'
+    | 'America/Boise'
+    | 'America/Cambridge_Bay'
+    | 'America/Campo_Grande'
+    | 'America/Cancun'
+    | 'America/Caracas'
+    | 'America/Cayenne'
+    | 'America/Cayman'
+    | 'America/Chicago'
+    | 'America/Chihuahua'
+    | 'America/Ciudad_Juarez'
+    | 'America/Costa_Rica'
+    | 'America/Creston'
+    | 'America/Cuiaba'
+    | 'America/Curacao'
+    | 'America/Danmarkshavn'
+    | 'America/Dawson'
+    | 'America/Dawson_Creek'
+    | 'America/Denver'
+    | 'America/Detroit'
+    | 'America/Dominica'
+    | 'America/Edmonton'
+    | 'America/Eirunepe'
+    | 'America/El_Salvador'
+    | 'America/Fort_Nelson'
+    | 'America/Fortaleza'
+    | 'America/Glace_Bay'
+    | 'America/Goose_Bay'
+    | 'America/Grand_Turk'
+    | 'America/Grenada'
+    | 'America/Guadeloupe'
+    | 'America/Guatemala'
+    | 'America/Guayaquil'
+    | 'America/Guyana'
+    | 'America/Halifax'
+    | 'America/Havana'
+    | 'America/Hermosillo'
+    | 'America/Indiana'
+    | 'America/Inuvik'
+    | 'America/Iqaluit'
+    | 'America/Jamaica'
+    | 'America/Juneau'
+    | 'America/Kentucky'
+    | 'America/Kralendijk'
+    | 'America/La_Paz'
+    | 'America/Lima'
+    | 'America/Los_Angeles'
+    | 'America/Lower_Princes'
+    | 'America/Maceio'
+    | 'America/Managua'
+    | 'America/Manaus'
+    | 'America/Marigot'
+    | 'America/Martinique'
+    | 'America/Matamoros'
+    | 'America/Mazatlan'
+    | 'America/Menominee'
+    | 'America/Merida'
+    | 'America/Metlakatla'
+    | 'America/Mexico_City'
+    | 'America/Miquelon'
+    | 'America/Moncton'
+    | 'America/Monterrey'
+    | 'America/Montevideo'
+    | 'America/Montserrat'
+    | 'America/Nassau'
+    | 'America/New_York'
+    | 'America/Nome'
+    | 'America/Noronha'
+    | 'America/North_Dakota'
+    | 'America/Nuuk'
+    | 'America/Ojinaga'
+    | 'America/Panama'
+    | 'America/Paramaribo'
+    | 'America/Phoenix'
+    | 'America/Port'
+    | 'America/Port_of_Spain'
+    | 'America/Porto_Velho'
+    | 'America/Puerto_Rico'
+    | 'America/Punta_Arenas'
+    | 'America/Rankin_Inlet'
+    | 'America/Recife'
+    | 'America/Regina'
+    | 'America/Resolute'
+    | 'America/Rio_Branco'
+    | 'America/Santarem'
+    | 'America/Santiago'
+    | 'America/Santo_Domingo'
+    | 'America/Sao_Paulo'
+    | 'America/Scoresbysund'
+    | 'America/Sitka'
+    | 'America/St_Barthelemy'
+    | 'America/St_Johns'
+    | 'America/St_Kitts'
+    | 'America/St_Lucia'
+    | 'America/St_Thomas'
+    | 'America/St_Vincent'
+    | 'America/Swift_Current'
+    | 'America/Tegucigalpa'
+    | 'America/Thule'
+    | 'America/Tijuana'
+    | 'America/Toronto'
+    | 'America/Tortola'
+    | 'America/Vancouver'
+    | 'America/Whitehorse'
+    | 'America/Winnipeg'
+    | 'America/Yakutat'
+    | 'America/Yellowknife'
+    | 'Antarctica/Casey'
+    | 'Antarctica/Davis'
+    | 'Antarctica/DumontDUrville'
+    | 'Antarctica/Macquarie'
+    | 'Antarctica/Mawson'
+    | 'Antarctica/McMurdo'
+    | 'Antarctica/Palmer'
+    | 'Antarctica/Rothera'
+    | 'Antarctica/Syowa'
+    | 'Antarctica/Troll'
+    | 'Antarctica/Vostok'
+    | 'Arctic/Longyearbyen'
+    | 'Asia/Aden'
+    | 'Asia/Almaty'
+    | 'Asia/Amman'
+    | 'Asia/Anadyr'
+    | 'Asia/Aqtau'
+    | 'Asia/Aqtobe'
+    | 'Asia/Ashgabat'
+    | 'Asia/Atyrau'
+    | 'Asia/Baghdad'
+    | 'Asia/Bahrain'
+    | 'Asia/Baku'
+    | 'Asia/Bangkok'
+    | 'Asia/Barnaul'
+    | 'Asia/Beirut'
+    | 'Asia/Bishkek'
+    | 'Asia/Brunei'
+    | 'Asia/Chita'
+    | 'Asia/Choibalsan'
+    | 'Asia/Colombo'
+    | 'Asia/Damascus'
+    | 'Asia/Dhaka'
+    | 'Asia/Dili'
+    | 'Asia/Dubai'
+    | 'Asia/Dushanbe'
+    | 'Asia/Famagusta'
+    | 'Asia/Gaza'
+    | 'Asia/Hebron'
+    | 'Asia/Ho_Chi_Minh'
+    | 'Asia/Hong_Kong'
+    | 'Asia/Hovd'
+    | 'Asia/Irkutsk'
+    | 'Asia/Jakarta'
+    | 'Asia/Jayapura'
+    | 'Asia/Jerusalem'
+    | 'Asia/Kabul'
+    | 'Asia/Kamchatka'
+    | 'Asia/Karachi'
+    | 'Asia/Kathmandu'
+    | 'Asia/Khandyga'
+    | 'Asia/Kolkata'
+    | 'Asia/Krasnoyarsk'
+    | 'Asia/Kuala_Lumpur'
+    | 'Asia/Kuching'
+    | 'Asia/Kuwait'
+    | 'Asia/Macau'
+    | 'Asia/Magadan'
+    | 'Asia/Makassar'
+    | 'Asia/Manila'
+    | 'Asia/Muscat'
+    | 'Asia/Nicosia'
+    | 'Asia/Novokuznetsk'
+    | 'Asia/Novosibirsk'
+    | 'Asia/Omsk'
+    | 'Asia/Oral'
+    | 'Asia/Phnom_Penh'
+    | 'Asia/Pontianak'
+    | 'Asia/Pyongyang'
+    | 'Asia/Qatar'
+    | 'Asia/Qostanay'
+    | 'Asia/Qyzylorda'
+    | 'Asia/Riyadh'
+    | 'Asia/Sakhalin'
+    | 'Asia/Samarkand'
+    | 'Asia/Seoul'
+    | 'Asia/Shanghai'
+    | 'Asia/Singapore'
+    | 'Asia/Srednekolymsk'
+    | 'Asia/Taipei'
+    | 'Asia/Tashkent'
+    | 'Asia/Tbilisi'
+    | 'Asia/Tehran'
+    | 'Asia/Thimphu'
+    | 'Asia/Tokyo'
+    | 'Asia/Tomsk'
+    | 'Asia/Ulaanbaatar'
+    | 'Asia/Urumqi'
+    | 'Asia/Ust'
+    | 'Asia/Vientiane'
+    | 'Asia/Vladivostok'
+    | 'Asia/Yakutsk'
+    | 'Asia/Yangon'
+    | 'Asia/Yekaterinburg'
+    | 'Asia/Yerevan'
+    | 'Atlantic/Azores'
+    | 'Atlantic/Bermuda'
+    | 'Atlantic/Canary'
+    | 'Atlantic/Cape_Verde'
+    | 'Atlantic/Faroe'
+    | 'Atlantic/Madeira'
+    | 'Atlantic/Reykjavik'
+    | 'Atlantic/South_Georgia'
+    | 'Atlantic/St_Helena'
+    | 'Atlantic/Stanley'
+    | 'Australia/Adelaide'
+    | 'Australia/Brisbane'
+    | 'Australia/Broken_Hill'
+    | 'Australia/Darwin'
+    | 'Australia/Eucla'
+    | 'Australia/Hobart'
+    | 'Australia/Lindeman'
+    | 'Australia/Lord_Howe'
+    | 'Australia/Melbourne'
+    | 'Australia/Perth'
+    | 'Australia/Sydney'
+    | 'Europe/Amsterdam'
+    | 'Europe/Andorra'
+    | 'Europe/Astrakhan'
+    | 'Europe/Athens'
+    | 'Europe/Belgrade'
+    | 'Europe/Berlin'
+    | 'Europe/Bratislava'
+    | 'Europe/Brussels'
+    | 'Europe/Bucharest'
+    | 'Europe/Budapest'
+    | 'Europe/Busingen'
+    | 'Europe/Chisinau'
+    | 'Europe/Copenhagen'
+    | 'Europe/Dublin'
+    | 'Europe/Gibraltar'
+    | 'Europe/Guernsey'
+    | 'Europe/Helsinki'
+    | 'Europe/Isle_of_Man'
+    | 'Europe/Istanbul'
+    | 'Europe/Jersey'
+    | 'Europe/Kaliningrad'
+    | 'Europe/Kirov'
+    | 'Europe/Kyiv'
+    | 'Europe/Lisbon'
+    | 'Europe/Ljubljana'
+    | 'Europe/London'
+    | 'Europe/Luxembourg'
+    | 'Europe/Madrid'
+    | 'Europe/Malta'
+    | 'Europe/Mariehamn'
+    | 'Europe/Minsk'
+    | 'Europe/Monaco'
+    | 'Europe/Moscow'
+    | 'Europe/Oslo'
+    | 'Europe/Paris'
+    | 'Europe/Podgorica'
+    | 'Europe/Prague'
+    | 'Europe/Riga'
+    | 'Europe/Rome'
+    | 'Europe/Samara'
+    | 'Europe/San_Marino'
+    | 'Europe/Sarajevo'
+    | 'Europe/Saratov'
+    | 'Europe/Simferopol'
+    | 'Europe/Skopje'
+    | 'Europe/Sofia'
+    | 'Europe/Stockholm'
+    | 'Europe/Tallinn'
+    | 'Europe/Tirane'
+    | 'Europe/Ulyanovsk'
+    | 'Europe/Vaduz'
+    | 'Europe/Vatican'
+    | 'Europe/Vienna'
+    | 'Europe/Vilnius'
+    | 'Europe/Volgograd'
+    | 'Europe/Warsaw'
+    | 'Europe/Zagreb'
+    | 'Europe/Zurich'
+    | 'Indian/Antananarivo'
+    | 'Indian/Chagos'
+    | 'Indian/Christmas'
+    | 'Indian/Cocos'
+    | 'Indian/Comoro'
+    | 'Indian/Kerguelen'
+    | 'Indian/Mahe'
+    | 'Indian/Maldives'
+    | 'Indian/Mauritius'
+    | 'Indian/Mayotte'
+    | 'Indian/Reunion'
+    | 'Pacific/Apia'
+    | 'Pacific/Auckland'
+    | 'Pacific/Bougainville'
+    | 'Pacific/Chatham'
+    | 'Pacific/Chuuk'
+    | 'Pacific/Easter'
+    | 'Pacific/Efate'
+    | 'Pacific/Fakaofo'
+    | 'Pacific/Fiji'
+    | 'Pacific/Funafuti'
+    | 'Pacific/Galapagos'
+    | 'Pacific/Gambier'
+    | 'Pacific/Guadalcanal'
+    | 'Pacific/Guam'
+    | 'Pacific/Honolulu'
+    | 'Pacific/Kanton'
+    | 'Pacific/Kiritimati'
+    | 'Pacific/Kosrae'
+    | 'Pacific/Kwajalein'
+    | 'Pacific/Majuro'
+    | 'Pacific/Marquesas'
+    | 'Pacific/Midway'
+    | 'Pacific/Nauru'
+    | 'Pacific/Niue'
+    | 'Pacific/Norfolk'
+    | 'Pacific/Noumea'
+    | 'Pacific/Pago_Pago'
+    | 'Pacific/Palau'
+    | 'Pacific/Pitcairn'
+    | 'Pacific/Pohnpei'
+    | 'Pacific/Port_Moresby'
+    | 'Pacific/Rarotonga'
+    | 'Pacific/Saipan'
+    | 'Pacific/Tahiti'
+    | 'Pacific/Tarawa'
+    | 'Pacific/Tongatapu'
+    | 'Pacific/Wake'
+    | 'Pacific/Wallis';
+  region: number | Region;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  google_map_url: string;
+  phone: string;
+  email: string;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  coordinates?: [number, number] | null;
+  address1: string;
+  address2?: string | null;
+  district?: string | null;
+  ward?: string | null;
+  city: number | City;
+  hours?:
+    | {
+        day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+        open: string;
+        close: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: number;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'menus';
+        value: number | Menu;
+      } | null)
+    | ({
+        relationTo: 'static-text';
+        value: number | StaticText;
+      } | null)
+    | ({
+        relationTo: 'regions';
+        value: number | Region;
+      } | null)
+    | ({
+        relationTo: 'cities';
+        value: number | City;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: number | Location;
+      } | null)
+    | ({
+        relationTo: 'butcher-categories';
+        value: number | ButcherCategory;
+      } | null)
+    | ({
+        relationTo: 'product-categories';
+        value: number | ProductCategory;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: number | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -107,11 +891,366 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  description?: T;
+  content?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              backgroundImage?: T;
+              title?: T;
+              subtitle?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'multi-panel-cta'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    appearance?: T;
+                    backgroundImage?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              panels?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    subtitle?: T;
+                    text?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                appearance?: T;
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'butcher-shop-promo'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    backgroundImage?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              categories?:
+                | T
+                | {
+                    category?: T;
+                    columns?: T;
+                    rows?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'product-highlights'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              categories?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'social-feed'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    line1?: T;
+                    line2?: T;
+                  };
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  description?: T;
+  vendure_id?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus_select".
+ */
+export interface MenusSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        type?: T;
+        style?: T;
+        subitems?:
+          | T
+          | {
+              title?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                  };
+              id?: T;
+            };
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "static-text_select".
+ */
+export interface StaticTextSelect<T extends boolean = true> {
+  text?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions_select".
+ */
+export interface RegionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  country_code?: T;
+  coordinates?: T;
+  defaultLocale?: T;
+  hostUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities_select".
+ */
+export interface CitiesSelect<T extends boolean = true> {
+  city?: T;
+  slug?: T;
+  coordinates?: T;
+  timezone?: T;
+  region?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  google_map_url?: T;
+  phone?: T;
+  email?: T;
+  coordinates?: T;
+  address1?: T;
+  address2?: T;
+  district?: T;
+  ward?: T;
+  city?: T;
+  hours?:
+    | T
+    | {
+        day?: T;
+        open?: T;
+        close?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "butcher-categories_select".
+ */
+export interface ButcherCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  vendureSlug?: T;
+  defaultImage?: T;
+  availableRegions?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories_select".
+ */
+export interface ProductCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  vendureSlug?: T;
+  parentCategory?: T;
+  defaultImage?: T;
+  availableRegions?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

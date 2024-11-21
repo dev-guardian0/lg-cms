@@ -8,6 +8,16 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import {locales} from "@/types/locales";
+import {Menus} from "@/collections/Menus";
+import {StaticText} from "@/collections/StaticText";
+import {Regions} from "@/collections/Regions";
+import {Cities} from "@/collections/Cities";
+import {Locations} from "@/collections/Locations";
+import {ProductCategories} from "@/collections/ProductCategories";
+import {Pages} from "@/collections/Pages";
+import {ButcherShopCategories} from "@/collections/ButcherShopCategories";
+import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,9 +29,25 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [
+    Users,
+    Pages,
+    Media,
+    Menus,
+    StaticText,
+    Regions,
+    Cities,
+    Locations,
+    ButcherShopCategories,
+    ProductCategories,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  localization: {
+    locales: locales.map(l => l.value), // required
+    defaultLocale: 'en', // required
+    fallback: true,
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -32,6 +58,21 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET!,
+      config: {
+        endpoint: process.env.S3_URL!,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY!,
+          secretAccessKey: process.env.S3_SECRET_KEY!,
+        },
+        region: process.env.S3_REGION!,
+        forcePathStyle: true,
+        // ... Other S3 configuration
+      },
+    }),
   ],
 })
