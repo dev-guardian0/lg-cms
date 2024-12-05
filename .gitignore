@@ -41,3 +41,5 @@ next-env.d.ts
 .env
 
 /media
+/supabase/.branches/_current_branch
+/supabase/.temp/cli-latest

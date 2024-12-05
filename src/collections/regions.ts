@@ -47,6 +47,12 @@ export const Regions: CollectionConfig = {
 			options: locales
 		},
 		{
+			name: 'availableLocales',
+			type: 'select',
+			hasMany: true,
+			options: locales
+		},
+		{
 			name: 'hostUrl',
 			label: 'Host URL',
 			index: true,

@@ -19,7 +19,7 @@ export const Hero: Block = {
 		},
 		{
 			name: "title",
-			type: "text",
+			type: "textarea",
 			required: true,
 			localized: true,
 		},

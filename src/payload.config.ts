@@ -6,18 +6,21 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { Users } from './collections/users'
+import { Media } from './collections/media'
 import {locales} from "@/types/locales";
-import {Menus} from "@/collections/Menus";
-import {StaticText} from "@/collections/StaticText";
-import {Regions} from "@/collections/Regions";
-import {Cities} from "@/collections/Cities";
-import {Locations} from "@/collections/Locations";
-import {ProductCategories} from "@/collections/ProductCategories";
-import {Pages} from "@/collections/Pages";
-import {ButcherShopCategories} from "@/collections/ButcherShopCategories";
+import {Menus} from "@/collections/menus";
+import {StaticText} from "@/collections/static-text";
+import {Regions} from "@/collections/regions";
+import {Cities} from "@/collections/cities";
+import {Locations} from "@/collections/locations";
+import {ProductCategories} from "@/collections/product-categories";
+import {Pages} from "@/collections/pages";
+import {ButcherShopCategories} from "@/collections/butcher-shop-categories";
 import { s3Storage } from '@payloadcms/storage-s3'
+import {Presets} from "@/collections/presets";
+import {Careers} from "@/collections/careers";
+import {Promotions} from "@/collections/promotions";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,6 +35,7 @@ export default buildConfig({
   collections: [
     Users,
     Pages,
+    Presets,
     Media,
     Menus,
     StaticText,
@@ -40,6 +44,8 @@ export default buildConfig({
     Locations,
     ButcherShopCategories,
     ProductCategories,
+    Careers,
+    Promotions,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

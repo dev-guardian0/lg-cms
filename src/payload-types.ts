@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     pages: Page;
+    presets: Preset;
     media: Media;
     menus: Menu;
     'static-text': StaticText;
@@ -21,6 +22,8 @@ export interface Config {
     locations: Location;
     'butcher-categories': ButcherCategory;
     'product-categories': ProductCategory;
+    careers: Career;
+    promotions: Promotion;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -29,6 +32,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    presets: PresetsSelect<false> | PresetsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     menus: MenusSelect<false> | MenusSelect<true>;
     'static-text': StaticTextSelect<false> | StaticTextSelect<true>;
@@ -37,6 +41,8 @@ export interface Config {
     locations: LocationsSelect<false> | LocationsSelect<true>;
     'butcher-categories': ButcherCategoriesSelect<false> | ButcherCategoriesSelect<true>;
     'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    careers: CareersSelect<false> | CareersSelect<true>;
+    promotions: PromotionsSelect<false> | PromotionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -101,6 +107,7 @@ export interface Page {
   slug: string;
   slug_auto_slug?: boolean | null;
   description?: string | null;
+  style?: ('default' | 'dark') | null;
   content: (
     | {
         backgroundImage: number | Media;
@@ -109,6 +116,7 @@ export interface Page {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -139,6 +147,7 @@ export interface Page {
                       appearance?: ('primary' | 'highlight') | null;
                       type?: ('reference' | 'custom') | null;
                       newTab?: boolean | null;
+                      icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
                       reference?: {
                         relationTo: 'pages';
                         value: number | Page;
@@ -165,6 +174,7 @@ export interface Page {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -203,6 +213,7 @@ export interface Page {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -219,6 +230,104 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'social-feed';
+      }
+    | {
+        line1: string;
+        line2: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'region-select-header';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'locations-grid';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'cities-filter';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'discover-locations';
+      }
+    | {
+        title: string;
+        testimonies: {
+          image: number | Media;
+          name: string;
+          testimony: string;
+          rating: number;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'testimonials';
+      }
+    | {
+        title: string;
+        text?: string | null;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'page-header';
+      }
+    | {
+        title: string;
+        text?: string | null;
+        images: (number | Media)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'text-and-image';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'event-room-selector';
+      }
+    | {
+        title: string;
+        text: string;
+        type?: 'catering' | null;
+        targetEmail: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contact-request-form';
       }
   )[];
   updatedAt: string;
@@ -278,6 +387,7 @@ export interface Region {
    */
   coordinates?: [number, number] | null;
   defaultLocale?: ('en' | 'vi') | null;
+  availableLocales?: ('en' | 'vi')[] | null;
   hostUrl: string;
   updatedAt: string;
   createdAt: string;
@@ -302,6 +412,140 @@ export interface ProductCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "presets".
+ */
+export interface Preset {
+  id: number;
+  name: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  description?: string | null;
+  style?: ('default' | 'dark') | null;
+  content: (
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'location-hero';
+      }
+    | {
+        bgImage: number | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'location-info';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'location-areas';
+      }
+    | {
+        title: string;
+        text: string;
+        images: (number | Media)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'location-highlight';
+      }
+    | {
+        title: string;
+        testimonies: {
+          image: number | Media;
+          name: string;
+          testimony: string;
+          rating: number;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'loc-testimonials';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'loc-discover-locations';
+      }
+    | {
+        basicInfo?: {
+          appearance?: ('simple' | 'promo') | null;
+          backgroundImage?: (number | null) | Media;
+          title?: string | null;
+          description?: string | null;
+        };
+        panels?:
+          | {
+              image?: (number | null) | Media;
+              title: string;
+              subtitle?: string | null;
+              text: string;
+              links?:
+                | {
+                    link: {
+                      appearance?: ('primary' | 'highlight') | null;
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null;
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'loc-multi-panel-cta';
+      }
+    | {
+        basicInfo?: {
+          title?: string | null;
+          description?: string | null;
+        };
+        categories: (number | ProductCategory)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'loc-product-highlights';
+      }
+    | {
+        basicInfo: {
+          line1: string;
+          line2: string;
+        };
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        images?:
+          | {
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'loc-social-feed';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "menus".
  */
 export interface Menu {
@@ -312,14 +556,16 @@ export interface Menu {
   items?:
     | {
         title: string;
-        type?: ('link' | 'submenu' | 'regions') | null;
+        type?: ('link' | 'submenu' | 'locations' | 'regions') | null;
         style?: ('primary' | 'highlight') | null;
+        colspan?: number | null;
         subitems?:
           | {
               title: string;
               link?: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -332,6 +578,7 @@ export interface Menu {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -354,6 +601,7 @@ export interface StaticText {
   text: string;
   slug: string;
   slug_auto_slug?: boolean | null;
+  location?: string | null;
   description?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -782,20 +1030,22 @@ export interface Location {
   id: number;
   title: string;
   slug: string;
-  description: string;
-  google_map_url: string;
+  slug_auto_slug?: boolean | null;
   phone: string;
   email: string;
-  /**
-   * @minItems 2
-   * @maxItems 2
-   */
-  coordinates?: [number, number] | null;
+  description: string;
+  generalHours: string;
   address1: string;
   address2?: string | null;
   district?: string | null;
   ward?: string | null;
   city: number | City;
+  google_map_url: string;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  coordinates?: [number, number] | null;
   hours?:
     | {
         day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
@@ -804,6 +1054,46 @@ export interface Location {
         id?: string | null;
       }[]
     | null;
+  primaryImage: number | Media;
+  heroImage: number | Media;
+  contentImages?: (number | Media)[] | null;
+  areas?:
+    | {
+        name: string;
+        seating?: number | null;
+        description: string;
+        phone?: string | null;
+        email?: string | null;
+        images: (number | Media)[];
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers".
+ */
+export interface Career {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotions".
+ */
+export interface Promotion {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -822,6 +1112,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'presets';
+        value: number | Preset;
       } | null)
     | ({
         relationTo: 'media';
@@ -854,6 +1148,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'product-categories';
         value: number | ProductCategory;
+      } | null)
+    | ({
+        relationTo: 'careers';
+        value: number | Career;
+      } | null)
+    | ({
+        relationTo: 'promotions';
+        value: number | Promotion;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -922,6 +1224,7 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   slug_auto_slug?: T;
   description?: T;
+  style?: T;
   content?:
     | T
     | {
@@ -936,6 +1239,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     reference?: T;
                     url?: T;
                     label?: T;
@@ -970,6 +1274,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 appearance?: T;
                                 type?: T;
                                 newTab?: T;
+                                icon?: T;
                                 reference?: T;
                                 url?: T;
                                 label?: T;
@@ -996,6 +1301,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     reference?: T;
                     url?: T;
                     label?: T;
@@ -1039,6 +1345,264 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'region-select-header'?:
+          | T
+          | {
+              line1?: T;
+              line2?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'locations-grid'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+        'cities-filter'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+        'discover-locations'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              title?: T;
+              testimonies?:
+                | T
+                | {
+                    image?: T;
+                    name?: T;
+                    testimony?: T;
+                    rating?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'page-header'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'text-and-image'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'event-room-selector'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'contact-request-form'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              type?: T;
+              targetEmail?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "presets_select".
+ */
+export interface PresetsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  description?: T;
+  style?: T;
+  content?:
+    | T
+    | {
+        'location-hero'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+        'location-info'?:
+          | T
+          | {
+              bgImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'location-areas'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'location-highlight'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'loc-testimonials'?:
+          | T
+          | {
+              title?: T;
+              testimonies?:
+                | T
+                | {
+                    image?: T;
+                    name?: T;
+                    testimony?: T;
+                    rating?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'loc-discover-locations'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'loc-multi-panel-cta'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    appearance?: T;
+                    backgroundImage?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              panels?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    subtitle?: T;
+                    text?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                appearance?: T;
+                                type?: T;
+                                newTab?: T;
+                                icon?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'loc-product-highlights'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              categories?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'loc-social-feed'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    line1?: T;
+                    line2?: T;
+                  };
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    icon?: T;
                     reference?: T;
                     url?: T;
                     label?: T;
@@ -1091,6 +1655,7 @@ export interface MenusSelect<T extends boolean = true> {
         title?: T;
         type?: T;
         style?: T;
+        colspan?: T;
         subitems?:
           | T
           | {
@@ -1100,6 +1665,7 @@ export interface MenusSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     reference?: T;
                     url?: T;
                   };
@@ -1110,6 +1676,7 @@ export interface MenusSelect<T extends boolean = true> {
           | {
               type?: T;
               newTab?: T;
+              icon?: T;
               reference?: T;
               url?: T;
             };
@@ -1127,6 +1694,7 @@ export interface StaticTextSelect<T extends boolean = true> {
   text?: T;
   slug?: T;
   slug_auto_slug?: T;
+  location?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1142,6 +1710,7 @@ export interface RegionsSelect<T extends boolean = true> {
   country_code?: T;
   coordinates?: T;
   defaultLocale?: T;
+  availableLocales?: T;
   hostUrl?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1167,22 +1736,38 @@ export interface CitiesSelect<T extends boolean = true> {
 export interface LocationsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  description?: T;
-  google_map_url?: T;
+  slug_auto_slug?: T;
   phone?: T;
   email?: T;
-  coordinates?: T;
+  description?: T;
+  generalHours?: T;
   address1?: T;
   address2?: T;
   district?: T;
   ward?: T;
   city?: T;
+  google_map_url?: T;
+  coordinates?: T;
   hours?:
     | T
     | {
         day?: T;
         open?: T;
         close?: T;
+        id?: T;
+      };
+  primaryImage?: T;
+  heroImage?: T;
+  contentImages?: T;
+  areas?:
+    | T
+    | {
+        name?: T;
+        seating?: T;
+        description?: T;
+        phone?: T;
+        email?: T;
+        images?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -1216,6 +1801,30 @@ export interface ProductCategoriesSelect<T extends boolean = true> {
   parentCategory?: T;
   defaultImage?: T;
   availableRegions?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers_select".
+ */
+export interface CareersSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotions_select".
+ */
+export interface PromotionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

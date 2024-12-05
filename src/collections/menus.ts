@@ -59,6 +59,7 @@ export const Menus: CollectionConfig = {
 							options: [
 								{label: 'Link', value: 'link'},
 								{label: 'Submenu', value: 'submenu'},
+								{label: 'Locations', value: 'locations'},
 								{label: 'Regions', value: 'regions'},
 							],
 						},
@@ -70,6 +71,14 @@ export const Menus: CollectionConfig = {
 								{label: 'Primary', value: 'primary'},
 								{label: 'Highlight', value: 'highlight'},
 							],
+						},
+						{
+							name: 'colspan',
+							label: 'Column Span',
+							defaultValue: 1,
+							type: 'number',
+							required: false,
+							localized: false,
 						},
 					]
 				},

@@ -1,0 +1,53 @@
+# Your GraphQL query or mutation goes here
+fragment ImageProps on Asset {
+    id
+    preview
+    source
+    width
+    height
+    updatedAt
+    type
+    fileSize
+    mimeType
+    tags {
+        value
+    }
+    focalPoint {
+        x
+        y
+    }
+}
+
+fragment CollectionPropsFragment on Collection {
+    id
+    parentId
+    name
+    slug
+    featuredAsset {
+        ...ImageProps
+    }
+    assets {
+        ...ImageProps
+    }
+    translations {
+        languageCode
+        name
+        slug
+    }
+}
+
+
+query {
+    collection(slug:"butcher-shop") {
+        ...CollectionPropsFragment
+        children {
+            ...CollectionPropsFragment
+            children {
+                ...CollectionPropsFragment
+                children {
+                    ...CollectionPropsFragment
+                }
+            }
+        }
+    }
+}

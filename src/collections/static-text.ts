@@ -32,6 +32,11 @@ export const StaticText: CollectionConfig = {
 			]
 		},
 		{
+			name: 'location',
+			type: 'text',
+			required: false,
+		},
+		{
 			name: 'description',
 			type: 'text',
 		},

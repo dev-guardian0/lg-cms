@@ -1,11 +1,7 @@
 import {CollectionConfig} from 'payload'
 
-import {Hero} from "@/blocks/Hero";
-import {MultiPanelCTA} from "@/blocks/MultiPanelCTA";
-import {ButcherShopPromo} from "@/blocks/ButcherShopPromo";
-import {ProductHighlights} from "@/blocks/ProductHighlights";
-import {SocialFeed} from "@/blocks/SocialFeed";
 import SlugField from "@/components/fields/slug-field";
+import {blocks} from "@/blocks/blocks";
 
 export const Pages: CollectionConfig = {
 	slug: 'pages',
@@ -52,10 +48,20 @@ export const Pages: CollectionConfig = {
 					label: "Content",
 					fields: [
 						{
+							name: 'style',
+							label: "Page Style",
+							type: 'select',
+							defaultValue: 'default',
+							options: [
+								{label: 'Default', value: 'default'},
+								{label: 'Dark', value: 'dark'},
+							],
+						},
+						{
 							name: 'content',
 							type: 'blocks',
 							required: true,
-							blocks: [Hero, MultiPanelCTA, ButcherShopPromo, ProductHighlights, SocialFeed],
+							blocks,
 						},
 					]
 				},

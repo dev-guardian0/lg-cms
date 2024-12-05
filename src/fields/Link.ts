@@ -35,7 +35,7 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
             defaultValue: 'reference',
             admin: {
               layout: 'horizontal',
-              width: '50%',
+              width: '33%',
             },
           },
           {
@@ -43,12 +43,31 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
             label: 'Open in new tab',
             type: 'checkbox',
             admin: {
-              width: '50%',
+              width: '33%',
               style: {
                 alignSelf: 'flex-end',
               },
             },
           },
+          {
+            name: 'icon',
+            type: 'select',
+            defaultValue: null,
+            options: [
+              {label: 'Email', value: 'email'},
+              {label: 'Phone', value: 'phone'},
+              {label: 'Facebook', value: 'facebook'},
+              {label: 'Instagram', value: 'instagram'},
+              {label: 'WhatsApp', value: 'whatsapp'},
+              {label: 'Zalo', value: 'zalo'},
+            ],
+            admin: {
+              width: '33%',
+              style: {
+                // alignSelf: 'flex-end',
+              },
+            },
+          }
         ],
       },
     ],
