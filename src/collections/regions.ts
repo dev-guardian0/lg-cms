@@ -58,6 +58,13 @@ export const Regions: CollectionConfig = {
 			index: true,
 			type: 'text',
 			required: true,
+		},
+		{
+			name: 'vendureChannel',
+			label: 'Vendure Channel',
+			index: true,
+			type: 'text',
+			required: true,
 		}
 	],
 	timestamps: true,

@@ -21,6 +21,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import {Presets} from "@/collections/presets";
 import {Careers} from "@/collections/careers";
 import {Promotions} from "@/collections/promotions";
+import {CareerApplications} from "@/collections/career-applications";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,6 +46,7 @@ export default buildConfig({
     ButcherShopCategories,
     ProductCategories,
     Careers,
+    CareerApplications,
     Promotions,
   ],
   editor: lexicalEditor(),

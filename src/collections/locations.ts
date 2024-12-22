@@ -61,6 +61,12 @@ export const Locations: CollectionConfig = {
 							required: true,
 							localized: true,
 						},
+						{
+							name: 'vendureChannel',
+							type: 'text',
+							required: true,
+							localized: false,
+						},
 					],
 				},
 				{

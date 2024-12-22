@@ -18,7 +18,7 @@ export default function SlugField(args:any) {
 		let slug = slugify(val ?? '', {
 			replacement: '-',
 			lower: true,
-			strict: true,
+			strict: false,
 		})
 			.substring(0, 64)
 			.replaceAll('--', '-')
@@ -36,9 +36,13 @@ export default function SlugField(args:any) {
 	}, [autoSlugValue, targetValue, genSlug]);
 
 	const inputChanged = (e:ChangeEvent<HTMLInputElement>) => {
-		setAutoSlugValue(false);
+		if (autoSlugValue) {
+			setAutoSlugValue(false);
 
-		genSlug(e.target.value);
+			genSlug(e.target.value);
+		} else {
+			setValue(e.target.value);
+		}
 	};
 
 	return (

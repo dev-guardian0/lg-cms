@@ -35,3 +35,9 @@ export const PageHeader: Block = {
 		}
 	]
 }
+
+export const PresetPageHeader: Block = {
+	...PageHeader,
+	slug: 'preset-page-header',
+	dbName: 'preset_page_header',
+}

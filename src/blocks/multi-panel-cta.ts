@@ -21,6 +21,7 @@ export const MultiPanelCTA: Block = {
 					defaultValue: 'simple',
 					options: [
 						{label: 'Simple', value: 'simple'},
+						{label: 'Simple Alternate', value: 'simple-alt'},
 						{label: 'Promo', value: 'promo'},
 					],
 				},
@@ -102,4 +103,10 @@ export const MultiPanelCTA: Block = {
 			]
 		}
 	]
+}
+
+export const PresetMultiPanelCTA: Block = {
+	...MultiPanelCTA,
+	slug: 'preset-multi-panel-cta',
+	dbName: 'preset_multi_cta',
 }

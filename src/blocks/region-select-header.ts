@@ -35,3 +35,9 @@ export const RegionSelectHeader: Block = {
 		}
 	]
 }
+
+export const PresetRegionSelectHeader: Block = {
+	...RegionSelectHeader,
+	slug: 'preset-region-select-header',
+	dbName: 'preset_region_select',
+}

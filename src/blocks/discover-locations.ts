@@ -18,3 +18,9 @@ export const DiscoverLocations: Block = {
 		}
 	]
 }
+
+export const PresetDiscoverLocations: Block = {
+	...DiscoverLocations,
+	slug: 'preset-discover-locations',
+	dbName: 'preset_discover_locs',
+}

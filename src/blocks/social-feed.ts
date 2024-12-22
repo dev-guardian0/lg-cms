@@ -43,3 +43,9 @@ export const SocialFeed: Block = {
 		},
 	]
 }
+
+export const PresetSocialFeed: Block = {
+	...SocialFeed,
+	slug: 'preset-social-feed',
+	dbName: 'preset_social_feed',
+}

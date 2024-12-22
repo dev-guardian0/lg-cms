@@ -36,3 +36,9 @@ export const ProductHighlights: Block = {
 		},
 	]
 }
+
+export const PresetProductHighlights: Block = {
+	...ProductHighlights,
+	slug: 'preset-product-highlights',
+	dbName: 'preset_product_highlights',
+}

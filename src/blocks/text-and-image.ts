@@ -31,3 +31,9 @@ export const TextAndImage: Block = {
 		}
 	]
 }
+
+export const PresetTextAndImage: Block = {
+	...TextAndImage,
+	slug: 'preset-text-and-image',
+	dbName: 'preset_text_and_image',
+}

@@ -23,6 +23,7 @@ export interface Config {
     'butcher-categories': ButcherCategory;
     'product-categories': ProductCategory;
     careers: Career;
+    'career-applications': CareerApplication;
     promotions: Promotion;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -42,6 +43,7 @@ export interface Config {
     'butcher-categories': ButcherCategoriesSelect<false> | ButcherCategoriesSelect<true>;
     'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
     careers: CareersSelect<false> | CareersSelect<true>;
+    'career-applications': CareerApplicationsSelect<false> | CareerApplicationsSelect<true>;
     promotions: PromotionsSelect<false> | PromotionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -56,9 +58,9 @@ export interface Config {
   user: User & {
     collection: 'users';
   };
-  jobs?: {
+  jobs: {
     tasks: unknown;
-    workflows?: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -110,10 +112,13 @@ export interface Page {
   style?: ('default' | 'dark') | null;
   content: (
     | {
+        type?: ('default' | 'multi-link') | null;
+        alignment?: ('center' | 'left') | null;
+        icon?: (number | null) | Media;
         backgroundImage: number | Media;
         title: string;
         subtitle?: string | null;
-        link: {
+        link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
@@ -124,13 +129,30 @@ export interface Page {
           url?: string | null;
           label: string;
         };
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'hero';
       }
     | {
         basicInfo?: {
-          appearance?: ('simple' | 'promo') | null;
+          appearance?: ('simple' | 'simple-alt' | 'promo') | null;
           backgroundImage?: (number | null) | Media;
           title?: string | null;
           description?: string | null;
@@ -167,11 +189,12 @@ export interface Page {
       }
     | {
         basicInfo?: {
+          style?: ('default' | 'landing' | 'product-page') | null;
           backgroundImage?: (number | null) | Media;
           title?: string | null;
           description?: string | null;
         };
-        link: {
+        link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
@@ -188,6 +211,13 @@ export interface Page {
               columns?: number | null;
               rows?: number | null;
               image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        footer?:
+          | {
+              icon: number | Media;
+              title: string;
               id?: string | null;
             }[]
           | null;
@@ -271,7 +301,9 @@ export interface Page {
         blockType: 'discover-locations';
       }
     | {
-        title: string;
+        style?: ('default' | 'alt') | null;
+        title?: string | null;
+        image?: (number | null) | Media;
         testimonies: {
           image: number | Media;
           name: string;
@@ -328,6 +360,78 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'contact-request-form';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'promo-list';
+      }
+    | {
+        style?: ('full-grid' | 'embedded') | null;
+        title: string;
+        subtitle?: string | null;
+        description?: string | null;
+        bgImage?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'careers-grid';
+      }
+    | {
+        style?: ('plain' | 'full-width') | null;
+        title?: string | null;
+        slides?:
+          | {
+              image: number | Media;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'carousel';
+      }
+    | {
+        title: string;
+        subtitle?: string | null;
+        style?: ('default' | 'product-page') | null;
+        shop?: ('butcher-shop' | 'all-day-dining') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'specials';
+      }
+    | {
+        title: string;
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'cta';
       }
   )[];
   updatedAt: string;
@@ -389,6 +493,7 @@ export interface Region {
   defaultLocale?: ('en' | 'vi') | null;
   availableLocales?: ('en' | 'vi')[] | null;
   hostUrl: string;
+  vendureChannel: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -425,6 +530,11 @@ export interface Preset {
     | {
         id?: string | null;
         blockName?: string | null;
+        blockType: 'store-product-details';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
         blockType: 'location-hero';
       }
     | {
@@ -448,27 +558,52 @@ export interface Preset {
         blockType: 'location-highlight';
       }
     | {
-        title: string;
-        testimonies: {
-          image: number | Media;
-          name: string;
-          testimony: string;
-          rating: number;
-          id?: string | null;
-        }[];
         id?: string | null;
         blockName?: string | null;
-        blockType: 'loc-testimonials';
+        blockType: 'career-details';
       }
     | {
+        type?: ('default' | 'multi-link') | null;
+        alignment?: ('center' | 'left') | null;
+        icon?: (number | null) | Media;
+        backgroundImage: number | Media;
         title: string;
+        subtitle?: string | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'loc-discover-locations';
+        blockType: 'preset-hero';
       }
     | {
         basicInfo?: {
-          appearance?: ('simple' | 'promo') | null;
+          appearance?: ('simple' | 'simple-alt' | 'promo') | null;
           backgroundImage?: (number | null) | Media;
           title?: string | null;
           description?: string | null;
@@ -501,7 +636,45 @@ export interface Preset {
           | null;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'loc-multi-panel-cta';
+        blockType: 'preset-multi-panel-cta';
+      }
+    | {
+        basicInfo?: {
+          style?: ('default' | 'landing' | 'product-page') | null;
+          backgroundImage?: (number | null) | Media;
+          title?: string | null;
+          description?: string | null;
+        };
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        categories?:
+          | {
+              category?: (number | null) | ButcherCategory;
+              columns?: number | null;
+              rows?: number | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        footer?:
+          | {
+              icon: number | Media;
+              title: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-butcher-shop-promo';
       }
     | {
         basicInfo?: {
@@ -511,7 +684,7 @@ export interface Preset {
         categories: (number | ProductCategory)[];
         id?: string | null;
         blockName?: string | null;
-        blockType: 'loc-product-highlights';
+        blockType: 'preset-product-highlights';
       }
     | {
         basicInfo: {
@@ -537,7 +710,185 @@ export interface Preset {
           | null;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'loc-social-feed';
+        blockType: 'preset-social-feed';
+      }
+    | {
+        line1: string;
+        line2: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-region-select-header';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-locations-grid';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-cities-filter';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-discover-locations';
+      }
+    | {
+        style?: ('default' | 'alt') | null;
+        title?: string | null;
+        image?: (number | null) | Media;
+        testimonies: {
+          image: number | Media;
+          name: string;
+          testimony: string;
+          rating: number;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-testimonials';
+      }
+    | {
+        title: string;
+        text?: string | null;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-page-header';
+      }
+    | {
+        title: string;
+        text?: string | null;
+        images: (number | Media)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-text-and-image';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-event-room-selector';
+      }
+    | {
+        title: string;
+        text: string;
+        type?: 'catering' | null;
+        targetEmail: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-contact-request-form';
+      }
+    | {
+        title: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-promo-list';
+      }
+    | {
+        style?: ('full-grid' | 'embedded') | null;
+        title: string;
+        subtitle?: string | null;
+        description?: string | null;
+        bgImage?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-careers-grid';
+      }
+    | {
+        style?: ('plain' | 'full-width') | null;
+        title?: string | null;
+        slides?:
+          | {
+              image: number | Media;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-carousel';
+      }
+    | {
+        title: string;
+        subtitle?: string | null;
+        style?: ('default' | 'product-page') | null;
+        shop?: ('butcher-shop' | 'all-day-dining') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-specials';
+      }
+    | {
+        title: string;
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-cta';
+      }
+    | {
+        type?: ('butcher-shop' | 'all-day-dining' | 'gift-cards' | 'merchandise') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-shop';
       }
   )[];
   updatedAt: string;
@@ -1035,6 +1386,7 @@ export interface Location {
   email: string;
   description: string;
   generalHours: string;
+  vendureChannel: string;
   address1: string;
   address2?: string | null;
   district?: string | null;
@@ -1079,8 +1431,98 @@ export interface Location {
 export interface Career {
   id: number;
   title: string;
-  slug: string;
-  slug_auto_slug?: boolean | null;
+  cities: (number | City)[];
+  overview: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  requirements: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  schedule?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  benefits?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  applications?: (number | CareerApplication)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "career-applications".
+ */
+export interface CareerApplication {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  cv_url?: string | null;
+  career?: (number | null) | Career;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1092,8 +1534,29 @@ export interface Career {
 export interface Promotion {
   id: number;
   title: string;
+  subtitle?: string | null;
   slug: string;
   slug_auto_slug?: boolean | null;
+  regions?: (number | null) | Region;
+  startDate?: string | null;
+  endDate?: string | null;
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  promoImage: number | Media;
+  mobilePromoImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1152,6 +1615,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'careers';
         value: number | Career;
+      } | null)
+    | ({
+        relationTo: 'career-applications';
+        value: number | CareerApplication;
       } | null)
     | ({
         relationTo: 'promotions';
@@ -1231,6 +1698,9 @@ export interface PagesSelect<T extends boolean = true> {
         hero?:
           | T
           | {
+              type?: T;
+              alignment?: T;
+              icon?: T;
               backgroundImage?: T;
               title?: T;
               subtitle?: T;
@@ -1243,6 +1713,22 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                  };
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
                   };
               id?: T;
               blockName?: T;
@@ -1292,6 +1778,7 @@ export interface PagesSelect<T extends boolean = true> {
               basicInfo?:
                 | T
                 | {
+                    style?: T;
                     backgroundImage?: T;
                     title?: T;
                     description?: T;
@@ -1313,6 +1800,13 @@ export interface PagesSelect<T extends boolean = true> {
                     columns?: T;
                     rows?: T;
                     image?: T;
+                    id?: T;
+                  };
+              footer?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
                     id?: T;
                   };
               id?: T;
@@ -1404,7 +1898,9 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?:
           | T
           | {
+              style?: T;
               title?: T;
+              image?: T;
               testimonies?:
                 | T
                 | {
@@ -1466,6 +1962,81 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'promo-list'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'careers-grid'?:
+          | T
+          | {
+              style?: T;
+              title?: T;
+              subtitle?: T;
+              description?: T;
+              bgImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        carousel?:
+          | T
+          | {
+              style?: T;
+              title?: T;
+              slides?:
+                | T
+                | {
+                    image?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        specials?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              style?: T;
+              shop?: T;
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1484,6 +2055,12 @@ export interface PresetsSelect<T extends boolean = true> {
   content?:
     | T
     | {
+        'store-product-details'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
         'location-hero'?:
           | T
           | {
@@ -1513,30 +2090,51 @@ export interface PresetsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'loc-testimonials'?:
+        'career-details'?:
           | T
           | {
+              id?: T;
+              blockName?: T;
+            };
+        'preset-hero'?:
+          | T
+          | {
+              type?: T;
+              alignment?: T;
+              icon?: T;
+              backgroundImage?: T;
               title?: T;
-              testimonies?:
+              subtitle?: T;
+              link?:
                 | T
                 | {
-                    image?: T;
-                    name?: T;
-                    testimony?: T;
-                    rating?: T;
+                    type?: T;
+                    newTab?: T;
+                    icon?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
                     id?: T;
                   };
               id?: T;
               blockName?: T;
             };
-        'loc-discover-locations'?:
-          | T
-          | {
-              title?: T;
-              id?: T;
-              blockName?: T;
-            };
-        'loc-multi-panel-cta'?:
+        'preset-multi-panel-cta'?:
           | T
           | {
               basicInfo?:
@@ -1575,7 +2173,47 @@ export interface PresetsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'loc-product-highlights'?:
+        'preset-butcher-shop-promo'?:
+          | T
+          | {
+              basicInfo?:
+                | T
+                | {
+                    style?: T;
+                    backgroundImage?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    icon?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              categories?:
+                | T
+                | {
+                    category?: T;
+                    columns?: T;
+                    rows?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              footer?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-product-highlights'?:
           | T
           | {
               basicInfo?:
@@ -1588,7 +2226,7 @@ export interface PresetsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'loc-social-feed'?:
+        'preset-social-feed'?:
           | T
           | {
               basicInfo?:
@@ -1613,6 +2251,197 @@ export interface PresetsSelect<T extends boolean = true> {
                     image?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-region-select-header'?:
+          | T
+          | {
+              line1?: T;
+              line2?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-locations-grid'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+        'preset-cities-filter'?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+        'preset-discover-locations'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-testimonials'?:
+          | T
+          | {
+              style?: T;
+              title?: T;
+              image?: T;
+              testimonies?:
+                | T
+                | {
+                    image?: T;
+                    name?: T;
+                    testimony?: T;
+                    rating?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-page-header'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-text-and-image'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-event-room-selector'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-contact-request-form'?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              type?: T;
+              targetEmail?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-promo-list'?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-careers-grid'?:
+          | T
+          | {
+              style?: T;
+              title?: T;
+              subtitle?: T;
+              description?: T;
+              bgImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-carousel'?:
+          | T
+          | {
+              style?: T;
+              title?: T;
+              slides?:
+                | T
+                | {
+                    image?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-specials'?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              style?: T;
+              shop?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'preset-cta'?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'preset-shop'?:
+          | T
+          | {
+              type?: T;
               id?: T;
               blockName?: T;
             };
@@ -1712,6 +2541,7 @@ export interface RegionsSelect<T extends boolean = true> {
   defaultLocale?: T;
   availableLocales?: T;
   hostUrl?: T;
+  vendureChannel?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1741,6 +2571,7 @@ export interface LocationsSelect<T extends boolean = true> {
   email?: T;
   description?: T;
   generalHours?: T;
+  vendureChannel?: T;
   address1?: T;
   address2?: T;
   district?: T;
@@ -1811,8 +2642,27 @@ export interface ProductCategoriesSelect<T extends boolean = true> {
  */
 export interface CareersSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
-  slug_auto_slug?: T;
+  cities?: T;
+  overview?: T;
+  description?: T;
+  requirements?: T;
+  schedule?: T;
+  benefits?: T;
+  applications?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "career-applications_select".
+ */
+export interface CareerApplicationsSelect<T extends boolean = true> {
+  name?: T;
+  phone?: T;
+  email?: T;
+  cv_url?: T;
+  career?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1823,8 +2673,15 @@ export interface CareersSelect<T extends boolean = true> {
  */
 export interface PromotionsSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   slug?: T;
   slug_auto_slug?: T;
+  regions?: T;
+  startDate?: T;
+  endDate?: T;
+  text?: T;
+  promoImage?: T;
+  mobilePromoImage?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

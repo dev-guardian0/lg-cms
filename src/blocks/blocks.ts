@@ -1,17 +1,30 @@
-import {Hero} from "@/blocks/hero";
-import {MultiPanelCTA} from "@/blocks/multi-panel-cta";
-import {ButcherShopPromo} from "@/blocks/butcher-shop-promo";
-import {ProductHighlights} from "@/blocks/product-highlights";
-import {SocialFeed} from "@/blocks/social-feed";
-import {RegionSelectHeader} from "@/blocks/region-select-header";
-import {LocationsGrid} from "@/blocks/locations-grid";
-import {CitiesFilter} from "@/blocks/cities-filter";
-import {DiscoverLocations} from "@/blocks/discover-locations";
-import {Testimonials} from "@/blocks/testimonials";
-import {PageHeader} from "@/blocks/page-header";
-import {TextAndImage} from "@/blocks/text-and-image";
-import {EventRoomSelector} from "@/blocks/event-room-selector";
-import {ContactRequestForm} from "@/blocks/contact-request-form";
+import {Hero, PresetHero} from "@/blocks/hero";
+import {MultiPanelCTA, PresetMultiPanelCTA} from "@/blocks/multi-panel-cta";
+import {ButcherShopPromo, PresetButcherShopPromo} from "@/blocks/butcher-shop-promo";
+import {PresetProductHighlights, ProductHighlights} from "@/blocks/product-highlights";
+import {PresetSocialFeed, SocialFeed} from "@/blocks/social-feed";
+import {PresetRegionSelectHeader, RegionSelectHeader} from "@/blocks/region-select-header";
+import {LocationsGrid, PresetLocationsGrid} from "@/blocks/locations-grid";
+import {CitiesFilter, PresetCitiesFilter} from "@/blocks/cities-filter";
+import {DiscoverLocations, PresetDiscoverLocations} from "@/blocks/discover-locations";
+import {PresetTestimonials, Testimonials} from "@/blocks/testimonials";
+import {PageHeader, PresetPageHeader} from "@/blocks/page-header";
+import {PresetTextAndImage, TextAndImage} from "@/blocks/text-and-image";
+import {EventRoomSelector, PresetEventRoomSelector} from "@/blocks/event-room-selector";
+import {ContactRequestForm, PresetContactRequestForm} from "@/blocks/contact-request-form";
+import {PresetPromoList, PromoList} from "@/blocks/promo-list";
+import {CareersGrid, PresetCareersGrid} from "@/blocks/careers-grid";
+import {Block} from "payload";
+import {LocationHero} from "@/preset-blocks/locations/location-hero";
+import {LocationInfo} from "@/preset-blocks/locations/location-info";
+import {LocationAreas} from "@/preset-blocks/locations/location-areas";
+import {LocationHighlight} from "@/preset-blocks/locations/location-highlight";
+import {CareerDetails} from "@/blocks/career-details";
+import {Carousel, PresetCarousel} from "@/blocks/carousel";
+import {PresetSpecials, Specials} from "@/blocks/specials";
+import {CTA, PresetCTA} from "@/blocks/cta";
+import {ProductDetails} from "@/preset-blocks/store/product-details";
+import {PresetShop} from "@/blocks/shop";
 
 export const blocks = [
 	Hero,
@@ -28,4 +41,38 @@ export const blocks = [
 	TextAndImage,
 	EventRoomSelector,
 	ContactRequestForm,
+	PromoList,
+	CareersGrid,
+	Carousel,
+	Specials,
+	CTA,
+];
+
+export const presetsBlocks: Block[] = [
+	ProductDetails,
+	LocationHero,
+	LocationInfo,
+	LocationAreas,
+	LocationHighlight,
+	CareerDetails,
+	PresetHero,
+	PresetMultiPanelCTA,
+	PresetButcherShopPromo,
+	PresetProductHighlights,
+	PresetSocialFeed,
+	PresetRegionSelectHeader,
+	PresetLocationsGrid,
+	PresetCitiesFilter,
+	PresetDiscoverLocations,
+	PresetTestimonials,
+	PresetPageHeader,
+	PresetTextAndImage,
+	PresetEventRoomSelector,
+	PresetContactRequestForm,
+	PresetPromoList,
+	PresetCareersGrid,
+	PresetCarousel,
+	PresetSpecials,
+	PresetCTA,
+	PresetShop,
 ];

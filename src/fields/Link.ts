@@ -6,9 +6,10 @@ type LinkType = (options?: {
 	hasAppearances?: boolean
   disableLabel?: boolean
   overrides?: Record<string, unknown>
+  required?: boolean
 }) => Field
 
-export const Link: LinkType = ({hasAppearances = false, disableLabel = false, overrides = {} } = {}) => {
+export const Link: LinkType = ({hasAppearances = false, disableLabel = false, overrides = {}, required = true } = {}) => {
   const linkResult: Field = {
     name: 'link',
     type: 'group',
@@ -79,7 +80,7 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
       label: 'Document to link to',
       type: 'relationship',
       relationTo: ['pages'],
-      required: true,
+      required,
       maxDepth: 1,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
@@ -89,7 +90,7 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
       name: 'url',
       label: 'Custom URL',
       type: 'text',
-      required: true,
+      required,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
@@ -113,7 +114,7 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
           name: 'label',
           label: 'Label',
           type: 'text',
-          required: true,
+          required,
           admin: {
             width: '50%',
           },

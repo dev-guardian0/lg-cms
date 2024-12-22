@@ -11,3 +11,9 @@ export const LocationsGrid: Block = {
 	fields: [
 	]
 }
+
+export const PresetLocationsGrid: Block = {
+	...LocationsGrid,
+	slug: 'preset-locations-grid',
+	dbName: 'preset_locations_grid',
+}

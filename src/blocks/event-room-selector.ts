@@ -17,3 +17,9 @@ export const EventRoomSelector: Block = {
 		},
 	]
 }
+
+export const PresetEventRoomSelector: Block = {
+	...EventRoomSelector,
+	slug: 'preset-event-room-selector',
+	dbName: 'preset_event_room_selector',
+}

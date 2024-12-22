@@ -17,6 +17,16 @@ export const ButcherShopPromo: Block = {
 			type: 'group',
 			fields: [
 				{
+					name: "style",
+					type: "select",
+					defaultValue: 'default',
+					options: [
+						{label: 'Default', value: 'default'},
+						{label: 'Butcher Shop Landing', value: 'landing'},
+						{label: 'Product Page', value: 'product-page'},
+					],
+				},
+				{
 					name: 'backgroundImage',
 					type: 'upload',
 					required: false,
@@ -36,7 +46,15 @@ export const ButcherShopPromo: Block = {
 				},
 			]
 		},
-		Link(),
+		Link({
+			overrides: {
+				admin: {
+					condition: (data:any, siblingData: any) => {
+						return siblingData?.basicInfo.style === 'default';
+					}
+				},
+			}
+		}),
 		{
 			name: "categories",
 			type: "array",
@@ -90,6 +108,38 @@ export const ButcherShopPromo: Block = {
 					relationTo: 'media',
 				},
 			]
+		},
+		{
+			name: "footer",
+			type: "array",
+			minRows: 1,
+			maxRows: 3,
+			admin: {
+				condition: (data:any, siblingData: any) => {
+					return siblingData?.basicInfo.style === 'landing';
+				},
+			},
+			fields: [
+				{
+					name: "icon",
+					type: "upload",
+					relationTo: "media",
+					localized: false,
+					required: true,
+				},
+				{
+					name: "title",
+					type: "text",
+					required: true,
+					localized: true,
+				},
+			]
 		}
 	]
+}
+
+export const PresetButcherShopPromo: Block = {
+	...ButcherShopPromo,
+	slug: 'preset-butcher-shop-promo',
+	dbName: 'preset_bs_promos',
 }

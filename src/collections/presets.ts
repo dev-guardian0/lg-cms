@@ -1,7 +1,7 @@
 import {CollectionConfig} from 'payload'
 
 import SlugField from "@/components/fields/slug-field";
-import {blocks} from "@/blocks/blocks";
+import {blocks, presetsBlocks} from "@/blocks/blocks";
 import {LocationHero} from "@/preset-blocks/locations/location-hero";
 import {LocationInfo} from "@/preset-blocks/locations/location-info";
 import {LocationMultiPanelCTA} from "@/preset-blocks/locations/location-multi-panel-cta";
@@ -11,6 +11,8 @@ import {LocationAreas} from "@/preset-blocks/locations/location-areas";
 import {LocationHighlight} from "@/preset-blocks/locations/location-highlight";
 import {LocationTestimonials} from "@/preset-blocks/locations/location-testimonials";
 import {LocationDiscoverLocations} from "@/preset-blocks/locations/location-discover-locations";
+import {PromoList} from "@/blocks/promo-list";
+import {CareersGrid} from "@/blocks/careers-grid";
 
 export const Presets: CollectionConfig = {
 	slug: 'presets',
@@ -69,17 +71,7 @@ export const Presets: CollectionConfig = {
 							name: 'content',
 							type: 'blocks',
 							required: true,
-							blocks: [
-								LocationHero,
-								LocationInfo,
-								LocationAreas,
-								LocationHighlight,
-								LocationTestimonials,
-								LocationDiscoverLocations,
-								LocationMultiPanelCTA,
-								LocationProductHighlights,
-								LocationSocialFeed,
-							]
+							blocks: presetsBlocks
 						},
 					]
 				},

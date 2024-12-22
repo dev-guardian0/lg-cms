@@ -42,3 +42,9 @@ export const ContactRequestForm: Block = {
 		},
 	]
 }
+
+export const PresetContactRequestForm: Block = {
+	...ContactRequestForm,
+	slug: 'preset-contact-request-form',
+	dbName: 'preset_contact_form',
+}

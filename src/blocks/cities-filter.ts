@@ -11,3 +11,9 @@ export const CitiesFilter: Block = {
 	fields: [
 	]
 }
+
+export const PresetCitiesFilter: Block = {
+	...CitiesFilter,
+	slug: 'preset-cities-filter',
+	dbName: 'preset_cities_filter',
+}

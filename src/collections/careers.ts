@@ -8,7 +8,7 @@ export const Careers: CollectionConfig = {
 	admin: {
 		group: 'Careers',
 		useAsTitle: 'title',
-		defaultColumns: ['title', 'slug', 'updatedAt'],
+		defaultColumns: ['title', 'cities', 'updatedAt'],
 	},
 	access: {
 		read: () => true,
@@ -18,17 +18,55 @@ export const Careers: CollectionConfig = {
 	},
 	fields: [
 		{
-			type: 'row',
-			fields: [
-				{
-					name: 'title',
-					type: 'text',
-					required: true,
-					localized: true,
-				},
-				SlugField({name: 'slug', localized: true, required: true, targetField: 'title', label: 'Slug'}),
-			]
+			name: 'title',
+			type: 'text',
+			required: true,
+			localized: true,
 		},
+		{
+			name: 'cities',
+			type: 'relationship',
+			relationTo: 'cities',
+			hasMany: true,
+			required: true,
+		},
+		{
+			name: 'overview',
+			type: 'richText',
+			required: true,
+			localized: true,
+		},
+		{
+			name: 'description',
+			type: 'richText',
+			required: true,
+			localized: true,
+		},
+		{
+			name: 'requirements',
+			type: 'richText',
+			required: true,
+			localized: true,
+		},
+		{
+			name: 'schedule',
+			type: 'richText',
+			required: false,
+			localized: true,
+		},
+		{
+			name: 'benefits',
+			type: 'richText',
+			required: false,
+			localized: true,
+		},
+		{
+			name: "applications",
+			type: "relationship",
+			relationTo: "career-applications",
+			hasMany: true,
+			required: false,
+		}
 	],
 	timestamps: true,
 }
