@@ -74,6 +74,13 @@ export const Locations: CollectionConfig = {
 							type: 'text',
 							required: true,
 						},
+						{
+							name: 'wixLocationId',
+							label: 'Wix Location Id',
+							index: true,
+							type: 'text',
+							required: false,
+						}
 					],
 				},
 				{
