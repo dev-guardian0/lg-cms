@@ -121,7 +121,24 @@ export interface Page {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -135,7 +152,24 @@ export interface Page {
                 appearance?: ('primary' | 'highlight') | null;
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -169,7 +203,24 @@ export interface Page {
                       appearance?: ('primary' | 'highlight') | null;
                       type?: ('reference' | 'custom') | null;
                       newTab?: boolean | null;
-                      icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                      icon?:
+                        | (
+                            | 'email'
+                            | 'phone'
+                            | 'facebook'
+                            | 'instagram'
+                            | 'whatsapp'
+                            | 'zalo'
+                            | 'account'
+                            | 'reservations'
+                            | 'orders'
+                            | 'vouchers'
+                            | 'billing'
+                            | 'notifications'
+                            | 'addresses'
+                            | 'invoices'
+                          )
+                        | null;
                       reference?: {
                         relationTo: 'pages';
                         value: number | Page;
@@ -197,7 +248,24 @@ export interface Page {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -243,7 +311,24 @@ export interface Page {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -269,7 +354,24 @@ export interface Page {
               link: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -323,7 +425,24 @@ export interface Page {
               link: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -386,7 +505,24 @@ export interface Page {
               link?: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -418,7 +554,24 @@ export interface Page {
                 appearance?: ('primary' | 'highlight') | null;
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -573,7 +726,24 @@ export interface Preset {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -587,7 +757,24 @@ export interface Preset {
                 appearance?: ('primary' | 'highlight') | null;
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -621,7 +808,24 @@ export interface Preset {
                       appearance?: ('primary' | 'highlight') | null;
                       type?: ('reference' | 'custom') | null;
                       newTab?: boolean | null;
-                      icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                      icon?:
+                        | (
+                            | 'email'
+                            | 'phone'
+                            | 'facebook'
+                            | 'instagram'
+                            | 'whatsapp'
+                            | 'zalo'
+                            | 'account'
+                            | 'reservations'
+                            | 'orders'
+                            | 'vouchers'
+                            | 'billing'
+                            | 'notifications'
+                            | 'addresses'
+                            | 'invoices'
+                          )
+                        | null;
                       reference?: {
                         relationTo: 'pages';
                         value: number | Page;
@@ -649,7 +853,24 @@ export interface Preset {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -695,7 +916,24 @@ export interface Preset {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
@@ -721,7 +959,24 @@ export interface Preset {
               link: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -775,7 +1030,24 @@ export interface Preset {
               link: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -838,7 +1110,24 @@ export interface Preset {
               link?: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -870,7 +1159,24 @@ export interface Preset {
                 appearance?: ('primary' | 'highlight') | null;
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -917,7 +1223,24 @@ export interface Menu {
               link?: {
                 type?: ('reference' | 'custom') | null;
                 newTab?: boolean | null;
-                icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
                 reference?: {
                   relationTo: 'pages';
                   value: number | Page;
@@ -930,7 +1253,24 @@ export interface Menu {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          icon?: ('email' | 'phone' | 'facebook' | 'instagram' | 'whatsapp' | 'zalo') | null;
+          icon?:
+            | (
+                | 'email'
+                | 'phone'
+                | 'facebook'
+                | 'instagram'
+                | 'whatsapp'
+                | 'zalo'
+                | 'account'
+                | 'reservations'
+                | 'orders'
+                | 'vouchers'
+                | 'billing'
+                | 'notifications'
+                | 'addresses'
+                | 'invoices'
+              )
+            | null;
           reference?: {
             relationTo: 'pages';
             value: number | Page;
