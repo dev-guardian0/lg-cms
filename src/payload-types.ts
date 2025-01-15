@@ -1729,6 +1729,7 @@ export interface Location {
   generalHours: string;
   vendureChannel: string;
   vendureDeliveryChannel: string;
+  wixLocationId?: string | null;
   address1: string;
   address2?: string | null;
   district?: string | null;
@@ -2916,6 +2917,7 @@ export interface LocationsSelect<T extends boolean = true> {
   generalHours?: T;
   vendureChannel?: T;
   vendureDeliveryChannel?: T;
+  wixLocationId?: T;
   address1?: T;
   address2?: T;
   district?: T;
