@@ -53,15 +53,22 @@ export const Regions: CollectionConfig = {
 			options: locales
 		},
 		{
-			name: 'hostUrl',
-			label: 'Host URL',
-			index: true,
-			type: 'text',
+			name: 'hostnames',
+			label: 'Host Names',
+			index: false,
+			type: 'textarea',
 			required: true,
 		},
 		{
 			name: 'vendureChannel',
 			label: 'Vendure Channel',
+			index: true,
+			type: 'text',
+			required: true,
+		},
+		{
+			name: 'vendureDeliveryChannel',
+			label: 'Vendure Delivery Channel',
 			index: true,
 			type: 'text',
 			required: true,

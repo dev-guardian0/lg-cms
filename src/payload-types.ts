@@ -492,8 +492,9 @@ export interface Region {
   coordinates?: [number, number] | null;
   defaultLocale?: ('en' | 'vi') | null;
   availableLocales?: ('en' | 'vi')[] | null;
-  hostUrl: string;
+  hostnames: string;
   vendureChannel: string;
+  vendureDeliveryChannel: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1387,6 +1388,7 @@ export interface Location {
   description: string;
   generalHours: string;
   vendureChannel: string;
+  vendureDeliveryChannel: string;
   address1: string;
   address2?: string | null;
   district?: string | null;
@@ -2540,8 +2542,9 @@ export interface RegionsSelect<T extends boolean = true> {
   coordinates?: T;
   defaultLocale?: T;
   availableLocales?: T;
-  hostUrl?: T;
+  hostnames?: T;
   vendureChannel?: T;
+  vendureDeliveryChannel?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -2572,6 +2575,7 @@ export interface LocationsSelect<T extends boolean = true> {
   description?: T;
   generalHours?: T;
   vendureChannel?: T;
+  vendureDeliveryChannel?: T;
   address1?: T;
   address2?: T;
   district?: T;
