@@ -22,6 +22,9 @@ import {Presets} from "@/collections/presets";
 import {Careers} from "@/collections/careers";
 import {Promotions} from "@/collections/promotions";
 import {CareerApplications} from "@/collections/career-applications";
+import {StaffGuidebookCategories} from "@/collections/staff-guidebook-categories";
+import {nestedDocsPlugin} from "@payloadcms/plugin-nested-docs";
+import {StaffGuidebookPage} from "@/collections/staff-guidebook-page";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,6 +51,8 @@ export default buildConfig({
     Careers,
     CareerApplications,
     Promotions,
+    StaffGuidebookCategories,
+    StaffGuidebookPage,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -66,6 +71,11 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    nestedDocsPlugin({
+      collections: ['staff-guidebook-categories'],
+      generateLabel: (_, doc) => doc.category as string,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+    }),
     s3Storage({
       collections: {
         media: true,

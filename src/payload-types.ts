@@ -25,6 +25,8 @@ export interface Config {
     careers: Career;
     'career-applications': CareerApplication;
     promotions: Promotion;
+    'staff-guidebook-categories': StaffGuidebookCategory;
+    'staff-guidebook-pages': StaffGuidebookPage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -45,6 +47,8 @@ export interface Config {
     careers: CareersSelect<false> | CareersSelect<true>;
     'career-applications': CareerApplicationsSelect<false> | CareerApplicationsSelect<true>;
     promotions: PromotionsSelect<false> | PromotionsSelect<true>;
+    'staff-guidebook-categories': StaffGuidebookCategoriesSelect<false> | StaffGuidebookCategoriesSelect<true>;
+    'staff-guidebook-pages': StaffGuidebookPagesSelect<false> | StaffGuidebookPagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -1906,6 +1910,55 @@ export interface Promotion {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-guidebook-categories".
+ */
+export interface StaffGuidebookCategory {
+  id: number;
+  category: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  parent?: (number | null) | StaffGuidebookCategory;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | StaffGuidebookCategory;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-guidebook-pages".
+ */
+export interface StaffGuidebookPage {
+  id: number;
+  title: string;
+  slug: string;
+  slug_auto_slug?: boolean | null;
+  category: number | StaffGuidebookCategory;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -1966,6 +2019,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'promotions';
         value: number | Promotion;
+      } | null)
+    | ({
+        relationTo: 'staff-guidebook-categories';
+        value: number | StaffGuidebookCategory;
+      } | null)
+    | ({
+        relationTo: 'staff-guidebook-pages';
+        value: number | StaffGuidebookPage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -3031,6 +3092,39 @@ export interface PromotionsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-guidebook-categories_select".
+ */
+export interface StaffGuidebookCategoriesSelect<T extends boolean = true> {
+  category?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-guidebook-pages_select".
+ */
+export interface StaffGuidebookPagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slug_auto_slug?: T;
+  category?: T;
+  text?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
