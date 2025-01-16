@@ -53,7 +53,7 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
           {
             name: 'icon',
             type: 'select',
-            defaultValue: null,
+            defaultValue: undefined,
             options: [
               {label: 'Email', value: 'email'},
               {label: 'Phone', value: 'phone'},
