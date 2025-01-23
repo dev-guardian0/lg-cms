@@ -72,6 +72,42 @@ export const Regions: CollectionConfig = {
 			index: true,
 			type: 'text',
 			required: true,
+		},
+		{
+			name: 'awsMapProvider',
+			label: 'AWS Map Provider',
+			type: 'text',
+			required: false,
+		},
+		{
+			name: 'awsPlacesIndex',
+			label: 'AWS Places Index',
+			type: 'text',
+			required: false,
+		},
+		{
+			name: 'awsLocationRegion',
+			label: 'AWS Location Region',
+			type: 'text',
+			required: false,
+		},
+		{
+			name: 'awsLocationKey',
+			label: 'AWS Location Public Key',
+			type: 'text',
+			required: false,
+		},
+		{
+			name: 'awsLocationAccessKey',
+			label: 'AWS Location Access Key',
+			type: 'text',
+			required: false,
+		},
+		{
+			name: 'awsLocationSecret',
+			label: 'AWS Location Secret',
+			type: 'text',
+			required: false,
 		}
 	],
 	timestamps: true,

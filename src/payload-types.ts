@@ -652,6 +652,12 @@ export interface Region {
   hostnames: string;
   vendureChannel: string;
   vendureDeliveryChannel: string;
+  awsMapProvider?: string | null;
+  awsPlacesIndex?: string | null;
+  awsLocationRegion?: string | null;
+  awsLocationKey?: string | null;
+  awsLocationAccessKey?: string | null;
+  awsLocationSecret?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -2947,6 +2953,12 @@ export interface RegionsSelect<T extends boolean = true> {
   hostnames?: T;
   vendureChannel?: T;
   vendureDeliveryChannel?: T;
+  awsMapProvider?: T;
+  awsPlacesIndex?: T;
+  awsLocationRegion?: T;
+  awsLocationKey?: T;
+  awsLocationAccessKey?: T;
+  awsLocationSecret?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
