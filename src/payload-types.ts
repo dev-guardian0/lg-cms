@@ -590,6 +590,26 @@ export interface Page {
         blockName?: string | null;
         blockType: 'cta';
       }
+    | {
+        title: string;
+        description: string;
+        amount_presets?:
+          | {
+              region: number | Region;
+              disclaimer?: string | null;
+              amounts?:
+                | {
+                    amount: number;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'vouchers';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -642,6 +662,7 @@ export interface Region {
   slug: string;
   slug_auto_slug?: boolean | null;
   country_code: string;
+  currency_code: string;
   /**
    * @minItems 2
    * @maxItems 2
@@ -1206,6 +1227,26 @@ export interface Preset {
         id?: string | null;
         blockName?: string | null;
         blockType: 'preset-shop';
+      }
+    | {
+        title: string;
+        description: string;
+        amount_presets?:
+          | {
+              region: number | Region;
+              disclaimer?: string | null;
+              amounts?:
+                | {
+                    amount: number;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'preset-vouchers';
       }
   )[];
   updatedAt: string;
@@ -2447,6 +2488,27 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        vouchers?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              amount_presets?:
+                | T
+                | {
+                    region?: T;
+                    disclaimer?: T;
+                    amounts?:
+                      | T
+                      | {
+                          amount?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2855,6 +2917,27 @@ export interface PresetsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        'preset-vouchers'?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              amount_presets?:
+                | T
+                | {
+                    region?: T;
+                    disclaimer?: T;
+                    amounts?:
+                      | T
+                      | {
+                          amount?: T;
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2947,6 +3030,7 @@ export interface RegionsSelect<T extends boolean = true> {
   slug?: T;
   slug_auto_slug?: T;
   country_code?: T;
+  currency_code?: T;
   coordinates?: T;
   defaultLocale?: T;
   availableLocales?: T;

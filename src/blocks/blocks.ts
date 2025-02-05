@@ -25,6 +25,7 @@ import {PresetSpecials, Specials} from "@/blocks/specials";
 import {CTA, PresetCTA} from "@/blocks/cta";
 import {ProductDetails} from "@/preset-blocks/store/product-details";
 import {PresetShop} from "@/blocks/shop";
+import {PresetVouchers, Vouchers} from "@/blocks/vouchers";
 
 export const blocks = [
 	Hero,
@@ -46,6 +47,7 @@ export const blocks = [
 	Carousel,
 	Specials,
 	CTA,
+	Vouchers,
 ];
 
 export const presetsBlocks: Block[] = [
@@ -75,4 +77,5 @@ export const presetsBlocks: Block[] = [
 	PresetSpecials,
 	PresetCTA,
 	PresetShop,
+	PresetVouchers,
 ];

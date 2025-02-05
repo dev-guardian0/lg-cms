@@ -32,6 +32,13 @@ export const Regions: CollectionConfig = {
 		},
 		{
 			name: 'country_code',
+			label: 'Country Code',
+			type: 'text',
+			required: true,
+		},
+		{
+			name: 'currency_code',
+			label: 'Currency Code',
 			type: 'text',
 			required: true,
 		},

@@ -33,6 +33,9 @@ dependencies:
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
+  drizzle-kit:
+    specifier: ^0.30.4
+    version: 0.30.4
   graphql:
     specifier: ^16.10.0
     version: 16.10.0
@@ -4276,6 +4279,18 @@ packages:
 
   /drizzle-kit@0.28.0:
     resolution: {integrity: sha512-KqI+CS2Ga9GYIrXpxpCDUJJrH/AT/k4UY0Pb4oRgQEGkgN1EdCnqp664cXgwPWjDr5RBtTsjZipw8+8C//K63A==}
+    hasBin: true
+    dependencies:
+      '@drizzle-team/brocli': 0.10.2
+      '@esbuild-kit/esm-loader': 2.6.5
+      esbuild: 0.19.12
+      esbuild-register: 3.6.0(esbuild@0.19.12)
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /drizzle-kit@0.30.4:
+    resolution: {integrity: sha512-B2oJN5UkvwwNHscPWXDG5KqAixu7AUzZ3qbe++KU9SsQ+cZWR4DXEPYcvWplyFAno0dhRJECNEhNxiDmFaPGyQ==}
     hasBin: true
     dependencies:
       '@drizzle-team/brocli': 0.10.2

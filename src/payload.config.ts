@@ -25,6 +25,7 @@ import {CareerApplications} from "@/collections/career-applications";
 import {StaffGuidebookCategories} from "@/collections/staff-guidebook-categories";
 import {nestedDocsPlugin} from "@payloadcms/plugin-nested-docs";
 import {StaffGuidebookPage} from "@/collections/staff-guidebook-page";
+import {bigint, bigserial, index, integer, jsonb, pgTable, serial, text, timestamp} from "@payloadcms/db-postgres/drizzle/pg-core";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,6 +66,26 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    beforeSchemaInit: [
+      ({ schema, adapter }) => {
+        return {
+          ...schema,
+          tables: {
+            ...schema.tables,
+            staffAppData: pgTable('staff_app_data', {
+              id: bigint({ mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+              category: text().notNull(),
+              flags: integer().notNull().default(0),
+              key: text(),
+              assoc_key: text(),
+              data: jsonb(),
+              date_created: timestamp({ withTimezone: true }).notNull().defaultNow(),
+              date_updated: timestamp({ withTimezone: true }).notNull().defaultNow(),
+            }),
+          },
+        }
+      },
+    ],
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
