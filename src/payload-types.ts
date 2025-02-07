@@ -58,7 +58,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: 'en' | 'vi';
+  locale: 'en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk';
   user: User & {
     collection: 'users';
   };
@@ -668,8 +668,8 @@ export interface Region {
    * @maxItems 2
    */
   coordinates?: [number, number] | null;
-  defaultLocale?: ('en' | 'vi') | null;
-  availableLocales?: ('en' | 'vi')[] | null;
+  defaultLocale?: ('en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk') | null;
+  availableLocales?: ('en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk')[] | null;
   hostnames: string;
   vendureChannel: string;
   vendureDeliveryChannel: string;

@@ -58,7 +58,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   localization: {
-    locales: locales.map(l => l.value), // required
+    locales: locales.map(l => { return { label: l.label, code: l.value } }), // required
     defaultLocale: 'en', // required
     fallback: true,
   },
