@@ -12,10 +12,6 @@ export const locales = [
 		value: 'th',
 	},
 	{
-		label: 'Tagalog',
-		value: 'tl',
-	},
-	{
 		label: 'Czech',
 		value: 'cs',
 	},
