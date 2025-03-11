@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import path from "node:path";
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -29,4 +30,17 @@ export const Media: CollectionConfig = {
       type: 'text',
     },
   ],
+  hooks: {
+    beforeOperation: [
+      async (req) => {
+        if (req.operation === 'create' && req.req.file) {
+          const parsed = path.parse(req.req.file.name);
+
+          const newfilename = path.join(parsed.dir, `${parsed.name}-${Date.now()}${parsed.ext}`);
+          req.req.file.name = newfilename;
+          // console.log('beforeOperation filename', req.req.file.name, newfilename);
+        }
+      }
+    ]
+  }
 }

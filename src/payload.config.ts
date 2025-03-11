@@ -5,6 +5,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
 
 import { Users } from './collections/users'
 import { Media } from './collections/media'
@@ -99,10 +100,26 @@ export default buildConfig({
     }),
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          disableLocalStorage: true,
+        },
       },
       bucket: process.env.S3_BUCKET!,
       config: {
+        requestHandler: new NodeHttpHandler({
+          httpAgent: {
+            maxSockets: 300, // default 50
+          },
+          httpsAgent: {
+            maxSockets: 300, // default 50
+          },
+
+          // time limit (ms) for receiving response.
+          requestTimeout: 5_000,
+
+          // time limit (ms) for establishing connection.
+          connectionTimeout: 5_000,
+        }),
         endpoint: process.env.S3_URL!,
         credentials: {
           accessKeyId: process.env.S3_ACCESS_KEY!,

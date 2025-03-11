@@ -30,6 +30,9 @@ dependencies:
   '@payloadcms/ui':
     specifier: ^3.17.1
     version: 3.17.1(monaco-editor@0.52.2)(next@15.0.0)(payload@3.17.1)(react-dom@19.0.0-rc-65a56d0e-20241020)(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)(typescript@5.6.3)
+  '@smithy/node-http-handler':
+    specifier: ^4.0.3
+    version: 4.0.3
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
@@ -198,7 +201,7 @@ packages:
       '@smithy/middleware-serde': 4.0.1
       '@smithy/middleware-stack': 4.0.1
       '@smithy/node-config-provider': 4.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
       '@smithy/types': 4.1.0
@@ -262,7 +265,7 @@ packages:
       '@smithy/middleware-serde': 4.0.1
       '@smithy/middleware-stack': 4.0.1
       '@smithy/node-config-provider': 4.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
       '@smithy/types': 4.1.0
@@ -314,7 +317,7 @@ packages:
       '@smithy/middleware-serde': 4.0.1
       '@smithy/middleware-stack': 4.0.1
       '@smithy/node-config-provider': 4.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
       '@smithy/types': 4.1.0
@@ -360,7 +363,7 @@ packages:
       '@smithy/middleware-serde': 4.0.1
       '@smithy/middleware-stack': 4.0.1
       '@smithy/node-config-provider': 4.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
       '@smithy/types': 4.1.0
@@ -408,7 +411,7 @@ packages:
       '@smithy/middleware-serde': 4.0.1
       '@smithy/middleware-stack': 4.0.1
       '@smithy/node-config-provider': 4.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
       '@smithy/types': 4.1.0
@@ -475,7 +478,7 @@ packages:
       '@aws-sdk/core': 3.723.0
       '@aws-sdk/types': 3.723.0
       '@smithy/fetch-http-handler': 5.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/property-provider': 4.0.1
       '@smithy/protocol-http': 5.0.1
       '@smithy/smithy-client': 4.1.2
@@ -3015,8 +3018,8 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /@smithy/node-http-handler@4.0.2:
-    resolution: {integrity: sha512-X66H9aah9hisLLSnGuzRYba6vckuFtGE+a5DcHLliI/YlqKrGoxhisD5XbX44KyoeRzoNlGr94eTsMVHFAzPOw==}
+  /@smithy/node-http-handler@4.0.3:
+    resolution: {integrity: sha512-dYCLeINNbYdvmMLtW0VdhW1biXt+PPCGazzT5ZjKw46mOtdgToQEwjqZSS9/EN8+tNs/RO0cEWG044+YZs97aA==}
     engines: {node: '>=18.0.0'}
     dependencies:
       '@smithy/abort-controller': 4.0.1
@@ -3225,7 +3228,7 @@ packages:
     engines: {node: '>=18.0.0'}
     dependencies:
       '@smithy/fetch-http-handler': 5.0.1
-      '@smithy/node-http-handler': 4.0.2
+      '@smithy/node-http-handler': 4.0.3
       '@smithy/types': 4.1.0
       '@smithy/util-base64': 4.0.0
       '@smithy/util-buffer-from': 4.0.0
