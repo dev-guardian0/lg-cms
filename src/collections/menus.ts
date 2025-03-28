@@ -61,6 +61,7 @@ export const Menus: CollectionConfig = {
 								{label: 'Submenu', value: 'submenu'},
 								{label: 'Locations', value: 'locations'},
 								{label: 'Regions', value: 'regions'},
+								{label: 'Make Reservation', value: 'reservation'},
 							],
 						},
 						{

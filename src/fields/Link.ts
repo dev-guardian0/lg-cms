@@ -32,6 +32,10 @@ export const Link: LinkType = ({hasAppearances = false, disableLabel = false, ov
                 label: 'Custom URL',
                 value: 'custom',
               },
+              {
+                label: 'Make Reservation',
+                value: 'reservation',
+              },
             ],
             defaultValue: 'reference',
             admin: {
