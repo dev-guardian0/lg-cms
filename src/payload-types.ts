@@ -6,10 +6,66 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     users: User;
     pages: Page;
@@ -58,7 +114,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: 'en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk';
+  locale: 'en' | 'vi' | 'th' | 'cs' | 'sk';
   user: User & {
     collection: 'users';
   };
@@ -123,7 +179,7 @@ export interface Page {
         title: string;
         subtitle?: string | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -154,7 +210,7 @@ export interface Page {
           | {
               link: {
                 appearance?: ('primary' | 'highlight') | null;
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -205,7 +261,7 @@ export interface Page {
                 | {
                     link: {
                       appearance?: ('primary' | 'highlight') | null;
-                      type?: ('reference' | 'custom') | null;
+                      type?: ('reference' | 'custom' | 'reservation') | null;
                       newTab?: boolean | null;
                       icon?:
                         | (
@@ -250,7 +306,7 @@ export interface Page {
           description?: string | null;
         };
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -313,7 +369,7 @@ export interface Page {
           line2: string;
         };
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -356,7 +412,7 @@ export interface Page {
         links?:
           | {
               link: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -427,7 +483,7 @@ export interface Page {
         links?:
           | {
               link: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -507,7 +563,7 @@ export interface Page {
           | {
               image: number | Media;
               link?: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -556,7 +612,7 @@ export interface Page {
           | {
               link: {
                 appearance?: ('primary' | 'highlight') | null;
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -609,6 +665,14 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'vouchers';
+      }
+    | {
+        title: string;
+        image: number | Media;
+        paragraph: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'about-us-hero';
       }
   )[];
   updatedAt: string;
@@ -668,8 +732,8 @@ export interface Region {
    * @maxItems 2
    */
   coordinates?: [number, number] | null;
-  defaultLocale?: ('en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk') | null;
-  availableLocales?: ('en' | 'vi' | 'th' | 'tl' | 'cs' | 'sk')[] | null;
+  defaultLocale?: ('en' | 'vi' | 'th' | 'cs' | 'sk') | null;
+  availableLocales?: ('en' | 'vi' | 'th' | 'cs' | 'sk')[] | null;
   hostnames: string;
   vendureChannel: string;
   vendureDeliveryChannel: string;
@@ -755,7 +819,7 @@ export interface Preset {
         title: string;
         subtitle?: string | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -786,7 +850,7 @@ export interface Preset {
           | {
               link: {
                 appearance?: ('primary' | 'highlight') | null;
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -837,7 +901,7 @@ export interface Preset {
                 | {
                     link: {
                       appearance?: ('primary' | 'highlight') | null;
-                      type?: ('reference' | 'custom') | null;
+                      type?: ('reference' | 'custom' | 'reservation') | null;
                       newTab?: boolean | null;
                       icon?:
                         | (
@@ -882,7 +946,7 @@ export interface Preset {
           description?: string | null;
         };
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -945,7 +1009,7 @@ export interface Preset {
           line2: string;
         };
         link: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -988,7 +1052,7 @@ export interface Preset {
         links?:
           | {
               link: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -1059,7 +1123,7 @@ export interface Preset {
         links?:
           | {
               link: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -1139,7 +1203,7 @@ export interface Preset {
           | {
               image: number | Media;
               link?: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -1188,7 +1252,7 @@ export interface Preset {
           | {
               link: {
                 appearance?: ('primary' | 'highlight') | null;
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -1265,14 +1329,14 @@ export interface Menu {
   items?:
     | {
         title: string;
-        type?: ('link' | 'submenu' | 'locations' | 'regions') | null;
+        type?: ('link' | 'submenu' | 'locations' | 'regions' | 'reservation') | null;
         style?: ('primary' | 'highlight') | null;
         colspan?: number | null;
         subitems?:
           | {
               title: string;
               link?: {
-                type?: ('reference' | 'custom') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
                 newTab?: boolean | null;
                 icon?:
                   | (
@@ -1302,7 +1366,7 @@ export interface Menu {
             }[]
           | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: ('reference' | 'custom' | 'reservation') | null;
           newTab?: boolean | null;
           icon?:
             | (
@@ -2506,6 +2570,15 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        'about-us-hero'?:
+          | T
+          | {
+              title?: T;
+              image?: T;
+              paragraph?: T;
               id?: T;
               blockName?: T;
             };
