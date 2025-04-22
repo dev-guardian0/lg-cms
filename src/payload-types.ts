@@ -674,6 +674,14 @@ export interface Page {
         blockName?: string | null;
         blockType: 'about-us-hero';
       }
+    | {
+        quote: string;
+        leftImages: (number | Media)[];
+        rightImages: (number | Media)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'founders-collage';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2579,6 +2587,15 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               image?: T;
               paragraph?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'founders-collage'?:
+          | T
+          | {
+              quote?: T;
+              leftImages?: T;
+              rightImages?: T;
               id?: T;
               blockName?: T;
             };

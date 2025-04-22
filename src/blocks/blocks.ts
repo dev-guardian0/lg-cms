@@ -27,6 +27,7 @@ import {ProductDetails} from "@/preset-blocks/store/product-details";
 import {PresetShop} from "@/blocks/shop";
 import {PresetVouchers, Vouchers} from "@/blocks/vouchers";
 import {AboutUsHero} from "@/blocks/about-us-hero";
+import {FoundersCollage} from "@/blocks/founders-collage";
 
 export const blocks = [
 	Hero,
@@ -49,7 +50,8 @@ export const blocks = [
 	Specials,
 	CTA,
 	Vouchers,
-	AboutUsHero
+	AboutUsHero,
+	FoundersCollage
 ];
 
 export const presetsBlocks: Block[] = [
