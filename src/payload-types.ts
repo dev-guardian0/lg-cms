@@ -682,6 +682,19 @@ export interface Page {
         blockName?: string | null;
         blockType: 'founders-collage';
       }
+    | {
+        title: string;
+        description: string;
+        stories: {
+          image: number | Media;
+          year: string;
+          content: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'our-stories';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2596,6 +2609,22 @@ export interface PagesSelect<T extends boolean = true> {
               quote?: T;
               leftImages?: T;
               rightImages?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'our-stories'?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              stories?:
+                | T
+                | {
+                    image?: T;
+                    year?: T;
+                    content?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
