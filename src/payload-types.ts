@@ -695,6 +695,19 @@ export interface Page {
         blockName?: string | null;
         blockType: 'our-stories';
       }
+    | {
+        title: string;
+        description: string;
+        ways: {
+          image: number | Media;
+          title: string;
+          content: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'gaucho-way';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2622,6 +2635,22 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     image?: T;
                     year?: T;
+                    content?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'gaucho-way'?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              ways?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
                     content?: T;
                     id?: T;
                   };
