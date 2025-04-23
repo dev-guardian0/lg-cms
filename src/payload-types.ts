@@ -83,6 +83,7 @@ export interface Config {
     promotions: Promotion;
     'staff-guidebook-categories': StaffGuidebookCategory;
     'staff-guidebook-pages': StaffGuidebookPage;
+    'press-articles': PressArticle;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -105,6 +106,7 @@ export interface Config {
     promotions: PromotionsSelect<false> | PromotionsSelect<true>;
     'staff-guidebook-categories': StaffGuidebookCategoriesSelect<false> | StaffGuidebookCategoriesSelect<true>;
     'staff-guidebook-pages': StaffGuidebookPagesSelect<false> | StaffGuidebookPagesSelect<true>;
+    'press-articles': PressArticlesSelect<false> | PressArticlesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -708,6 +710,17 @@ export interface Page {
         blockName?: string | null;
         blockType: 'gaucho-way';
       }
+    | {
+        article?:
+          | {
+              item?: (number | null) | PressArticle;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'articles';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -794,6 +807,34 @@ export interface ProductCategory {
   parentCategory?: (number | null) | ProductCategory;
   defaultImage?: (number | null) | Media;
   availableRegions?: (number | Region)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "press-articles".
+ */
+export interface PressArticle {
+  id: number;
+  title: string;
+  date: string;
+  publicationName: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -2172,6 +2213,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'staff-guidebook-pages';
         value: number | StaffGuidebookPage;
+      } | null)
+    | ({
+        relationTo: 'press-articles';
+        value: number | PressArticle;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2652,6 +2697,18 @@ export interface PagesSelect<T extends boolean = true> {
                     image?: T;
                     title?: T;
                     content?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        articles?:
+          | T
+          | {
+              article?:
+                | T
+                | {
+                    item?: T;
                     id?: T;
                   };
               id?: T;
@@ -3369,6 +3426,19 @@ export interface StaffGuidebookPagesSelect<T extends boolean = true> {
   text?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "press-articles_select".
+ */
+export interface PressArticlesSelect<T extends boolean = true> {
+  title?: T;
+  date?: T;
+  publicationName?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
