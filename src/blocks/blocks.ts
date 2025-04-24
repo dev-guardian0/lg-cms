@@ -31,6 +31,7 @@ import {FoundersCollage} from "@/blocks/founders-collage";
 import {OurStories} from "@/blocks/our-stories";
 import {GauchoWay} from "@/blocks/gaucho-way";
 import {Articles} from "@/blocks/articles";
+import {FranchiseHero} from "@/blocks/franchise-hero";
 
 export const blocks = [
 	Hero,
@@ -57,7 +58,8 @@ export const blocks = [
 	FoundersCollage,
 	OurStories,
 	GauchoWay,
-	Articles
+	Articles,
+	FranchiseHero
 ];
 
 export const presetsBlocks: Block[] = [

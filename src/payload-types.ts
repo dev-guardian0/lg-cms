@@ -721,6 +721,12 @@ export interface Page {
         blockName?: string | null;
         blockType: 'articles';
       }
+    | {
+        images: (number | Media)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'franchise-hero';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2711,6 +2717,13 @@ export interface PagesSelect<T extends boolean = true> {
                     item?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        'franchise-hero'?:
+          | T
+          | {
+              images?: T;
               id?: T;
               blockName?: T;
             };
