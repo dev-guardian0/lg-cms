@@ -33,6 +33,7 @@ import {GauchoWay} from "@/blocks/gaucho-way";
 import {Articles} from "@/blocks/articles";
 import {FranchiseHero} from "@/blocks/franchise-hero";
 import {FranchiseIntros} from "@/blocks/franchise-intros";
+import {FranchiseBenefit} from "@/blocks/franchise-benefit";
 
 export const blocks = [
 	Hero,
@@ -61,7 +62,8 @@ export const blocks = [
 	GauchoWay,
 	Articles,
 	FranchiseHero,
-	FranchiseIntros
+	FranchiseIntros,
+	FranchiseBenefit
 ];
 
 export const presetsBlocks: Block[] = [

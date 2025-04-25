@@ -779,6 +779,53 @@ export interface Page {
         blockName?: string | null;
         blockType: 'franchise-intros';
       }
+    | {
+        title: string;
+        subtitle: string;
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
+                newTab?: boolean | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        benefits: {
+          icon: number | Media;
+          title: string;
+          description: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'franchise-benefit';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2810,6 +2857,38 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'franchise-benefit'?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              benefits?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
                     description?: T;
                     id?: T;
                   };
