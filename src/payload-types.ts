@@ -727,6 +727,58 @@ export interface Page {
         blockName?: string | null;
         blockType: 'franchise-hero';
       }
+    | {
+        title: string;
+        subtitle: string;
+        links?:
+          | {
+              link: {
+                appearance?: ('primary' | 'highlight') | null;
+                type?: ('reference' | 'custom' | 'reservation') | null;
+                newTab?: boolean | null;
+                icon?:
+                  | (
+                      | 'email'
+                      | 'phone'
+                      | 'facebook'
+                      | 'instagram'
+                      | 'whatsapp'
+                      | 'zalo'
+                      | 'account'
+                      | 'reservations'
+                      | 'orders'
+                      | 'vouchers'
+                      | 'billing'
+                      | 'notifications'
+                      | 'addresses'
+                      | 'invoices'
+                    )
+                  | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null;
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        intros?:
+          | {
+              paragraph: string;
+              id?: string | null;
+            }[]
+          | null;
+        cards: {
+          image: number | Media;
+          description: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'franchise-intros';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2724,6 +2776,43 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'franchise-intros'?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          appearance?: T;
+                          type?: T;
+                          newTab?: T;
+                          icon?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+              intros?:
+                | T
+                | {
+                    paragraph?: T;
+                    id?: T;
+                  };
+              cards?:
+                | T
+                | {
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
