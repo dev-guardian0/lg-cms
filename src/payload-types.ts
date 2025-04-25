@@ -826,6 +826,25 @@ export interface Page {
         blockName?: string | null;
         blockType: 'franchise-benefit';
       }
+    | {
+        header: string;
+        process: {
+          no: string;
+          title: string;
+          description: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'cooperation-process';
+      }
+    | {
+        title: string;
+        url: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contact-us';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -2892,6 +2911,29 @@ export interface PagesSelect<T extends boolean = true> {
                     description?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        'cooperation-process'?:
+          | T
+          | {
+              header?: T;
+              process?:
+                | T
+                | {
+                    no?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'contact-us'?:
+          | T
+          | {
+              title?: T;
+              url?: T;
               id?: T;
               blockName?: T;
             };
