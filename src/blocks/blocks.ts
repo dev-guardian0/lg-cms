@@ -29,13 +29,13 @@ import {PresetVouchers, Vouchers} from "@/blocks/vouchers";
 import {AboutUsHero} from "@/blocks/about-us-hero";
 import {FoundersCollage} from "@/blocks/founders-collage";
 import {OurStories} from "@/blocks/our-stories";
-import {GauchoWay} from "@/blocks/gaucho-way";
 import {Articles} from "@/blocks/articles";
 import {FranchiseHero} from "@/blocks/franchise-hero";
 import {FranchiseIntros} from "@/blocks/franchise-intros";
 import {FranchiseBenefit} from "@/blocks/franchise-benefit";
 import {CooperationProcess} from "@/blocks/cooperation-process";
 import {ContactUs} from "@/blocks/contact-us";
+import {FeatureCards} from "@/blocks/feature-cards";
 
 export const blocks = [
 	Hero,
@@ -61,13 +61,13 @@ export const blocks = [
 	AboutUsHero,
 	FoundersCollage,
 	OurStories,
-	GauchoWay,
 	Articles,
 	FranchiseHero,
 	FranchiseIntros,
 	FranchiseBenefit,
 	CooperationProcess,
-	ContactUs
+	ContactUs,
+	FeatureCards
 ];
 
 export const presetsBlocks: Block[] = [

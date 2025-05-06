@@ -698,19 +698,6 @@ export interface Page {
         blockType: 'our-stories';
       }
     | {
-        title: string;
-        description: string;
-        ways: {
-          image: number | Media;
-          title: string;
-          content: string;
-          id?: string | null;
-        }[];
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'gaucho-way';
-      }
-    | {
         article?:
           | {
               item?: (number | null) | PressArticle;
@@ -844,6 +831,20 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'contact-us';
+      }
+    | {
+        appearance?: ('default' | 'style') | null;
+        heading: string;
+        subheading: string;
+        cards: {
+          image: number | Media;
+          title: string;
+          description: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'feature-cards';
       }
   )[];
   updatedAt: string;
@@ -2810,22 +2811,6 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        'gaucho-way'?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              ways?:
-                | T
-                | {
-                    image?: T;
-                    title?: T;
-                    content?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
         articles?:
           | T
           | {
@@ -2934,6 +2919,23 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               url?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'feature-cards'?:
+          | T
+          | {
+              appearance?: T;
+              heading?: T;
+              subheading?: T;
+              cards?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
