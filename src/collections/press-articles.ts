@@ -5,7 +5,7 @@ export const PressArticles: CollectionConfig = {
     admin: {
         group: 'Articles',
         useAsTitle: 'title',
-        defaultColumns: ['title', 'publicationName', 'date', 'content'],
+        defaultColumns: ['title', 'publicationName', 'date', 'content', 'link'],
     },
     access: {
         read: () => true,
@@ -38,5 +38,11 @@ export const PressArticles: CollectionConfig = {
             required: true,
             label: 'Content',
         },
+        {
+            name: 'externalLink',
+            type: 'text',
+            required: true,
+            label: 'Article URL',
+        }
     ],
 }

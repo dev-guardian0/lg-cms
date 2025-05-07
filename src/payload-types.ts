@@ -960,6 +960,7 @@ export interface PressArticle {
     };
     [k: string]: unknown;
   };
+  externalLink: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -3661,6 +3662,7 @@ export interface PressArticlesSelect<T extends boolean = true> {
   date?: T;
   publicationName?: T;
   content?: T;
+  externalLink?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
