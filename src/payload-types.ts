@@ -84,6 +84,7 @@ export interface Config {
     'staff-guidebook-categories': StaffGuidebookCategory;
     'staff-guidebook-pages': StaffGuidebookPage;
     'press-articles': PressArticle;
+    'terms-and-policies': TermsAndPolicy;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -107,6 +108,7 @@ export interface Config {
     'staff-guidebook-categories': StaffGuidebookCategoriesSelect<false> | StaffGuidebookCategoriesSelect<true>;
     'staff-guidebook-pages': StaffGuidebookPagesSelect<false> | StaffGuidebookPagesSelect<true>;
     'press-articles': PressArticlesSelect<false> | PressArticlesSelect<true>;
+    'terms-and-policies': TermsAndPoliciesSelect<false> | TermsAndPoliciesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -2271,6 +2273,19 @@ export interface StaffGuidebookPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-and-policies".
+ */
+export interface TermsAndPolicy {
+  id: number;
+  type: 'terms' | 'policies';
+  title: string;
+  content: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -2343,6 +2358,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'press-articles';
         value: number | PressArticle;
+      } | null)
+    | ({
+        relationTo: 'terms-and-policies';
+        value: number | TermsAndPolicy;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -3663,6 +3682,18 @@ export interface PressArticlesSelect<T extends boolean = true> {
   publicationName?: T;
   content?: T;
   externalLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-and-policies_select".
+ */
+export interface TermsAndPoliciesSelect<T extends boolean = true> {
+  type?: T;
+  title?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

@@ -27,6 +27,7 @@ import {StaffGuidebookCategories} from "@/collections/staff-guidebook-categories
 import {nestedDocsPlugin} from "@payloadcms/plugin-nested-docs";
 import {StaffGuidebookPage} from "@/collections/staff-guidebook-page";
 import {PressArticles} from '@/collections/press-articles';
+import {TermsAndPolicies} from '@/collections/terms-policies';
 import {bigint, bigserial, index, integer, jsonb, pgTable, serial, text, timestamp} from "@payloadcms/db-postgres/drizzle/pg-core";
 
 const filename = fileURLToPath(import.meta.url)
@@ -56,7 +57,8 @@ export default buildConfig({
     Promotions,
     StaffGuidebookCategories,
     StaffGuidebookPage,
-    PressArticles
+    PressArticles,
+    TermsAndPolicies
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
