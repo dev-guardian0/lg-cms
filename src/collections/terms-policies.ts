@@ -34,7 +34,7 @@ export const TermsAndPolicies: CollectionConfig = {
 		{
 			name: 'content',
 			label: 'Content',
-			type: 'textarea',
+			type: 'richText',
 			required: true,
 			localized: true,
 		},
